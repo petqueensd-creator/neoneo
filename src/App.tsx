@@ -41,15 +41,15 @@ const StaticTunnelBackground = () => (
 
 const GlitchText = ({ text, className }: { text: string, className?: string }) => {
   return (
-    <div className={`relative inline-block ${className}`}>
-      <span className="relative z-10">{text}</span>
+    <span className={`inline-grid grid-cols-1 grid-rows-1 ${className}`}>
+      <span className="relative z-10 col-start-1 row-start-1">{text}</span>
       <motion.span 
         animate={{ 
           x: [-2, 2, -1, 0, 1],
           opacity: [0, 0.5, 0, 0.3, 0]
         }}
         transition={{ duration: 0.2, repeat: Infinity, repeatDelay: Math.random() * 5 }}
-        className="absolute inset-0 text-red-500 z-0 select-none"
+        className="col-start-1 row-start-1 text-red-500 z-0 select-none pointer-events-none"
       >
         {text}
       </motion.span>
@@ -59,11 +59,11 @@ const GlitchText = ({ text, className }: { text: string, className?: string }) =
           opacity: [0, 0.5, 0, 0.3, 0]
         }}
         transition={{ duration: 0.2, repeat: Infinity, repeatDelay: Math.random() * 5 }}
-        className="absolute inset-0 text-blue-500 z-0 select-none"
+        className="col-start-1 row-start-1 text-blue-500 z-0 select-none pointer-events-none"
       >
         {text}
       </motion.span>
-    </div>
+    </span>
   );
 };
 
@@ -199,7 +199,7 @@ const MysteriousBackgroundImages = () => {
             }}
             exit={{ opacity: 0, scale: 1.5, filter: 'blur(40px)' }}
             transition={{ duration: 4, ease: "linear" }}
-            className="absolute w-[400px] h-[400px] md:w-[900px] md:h-[900px] object-contain"
+            className="absolute w-[280px] h-[280px] md:w-[900px] md:h-[900px] object-contain"
             style={{
               top: `${activeChar.y}%`,
               left: `${activeChar.x}%`,
@@ -248,7 +248,7 @@ const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
   }, [onComplete]);
 
   return (
-    <div className="fixed inset-0 z-[1000] bg-black flex flex-col items-center justify-center p-12 font-mono">
+    <div className="fixed inset-0 z-[1000] bg-black flex flex-col items-center justify-center p-6 sm:p-12 font-mono">
       <div className="max-w-md w-full">
         <div className="flex justify-between items-end mb-4">
           <div className="space-y-1">
@@ -304,7 +304,7 @@ const SystemAlert = () => {
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 100 }}
-          className="fixed top-32 right-12 z-[150] bg-red-950/80 border border-red-500/50 p-4 backdrop-blur-md font-mono"
+          className="fixed top-24 right-4 md:top-32 md:right-12 z-[150] bg-red-950/80 border border-red-500/50 p-4 backdrop-blur-md font-mono"
         >
           <div className="flex items-center gap-4 text-red-500">
             <div className="w-2 h-2 bg-red-500 rounded-full animate-ping" />
@@ -483,7 +483,7 @@ const RedactedText = ({ children }: { children: React.ReactNode }) => (
 );
 
 const SectionHeading = ({ children, subtitle, number }: { children: React.ReactNode, subtitle?: string, number?: string }) => (
-  <div className="mb-32 relative">
+  <div className="mb-16 md:mb-32 relative">
     {number && (
       <motion.div 
         initial={{ opacity: 0, x: -20 }}
@@ -504,7 +504,7 @@ const SectionHeading = ({ children, subtitle, number }: { children: React.ReactN
       transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
       className="relative"
     >
-      <h2 className="text-4xl sm:text-6xl md:text-9xl font-display font-black mb-8 tracking-tighter uppercase leading-[0.8] glow-text break-words">
+      <h2 className="text-3xl sm:text-6xl md:text-9xl font-display font-black mb-6 md:mb-8 tracking-tighter uppercase leading-[0.9] md:leading-[0.8] glow-text break-words overflow-wrap-anywhere">
         {children}
       </h2>
       <div className="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-accent/30" />
@@ -515,7 +515,7 @@ const SectionHeading = ({ children, subtitle, number }: { children: React.ReactN
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.3, duration: 1 }}
-        className="text-white/40 max-w-2xl text-xl md:text-2xl font-serif italic leading-tight tracking-tight border-l-2 border-accent/10 pl-8 mt-8"
+        className="text-white/40 max-w-2xl text-lg md:text-2xl font-serif italic leading-tight tracking-tight border-l-2 border-accent/10 pl-6 md:pl-8 mt-6 md:mt-8"
       >
         {subtitle}
       </motion.p>
@@ -528,7 +528,7 @@ const ClassifiedStamp = () => (
     initial={{ opacity: 0, scale: 1.5, rotate: -20 }}
     whileInView={{ opacity: 0.2, scale: 1, rotate: -15 }}
     viewport={{ once: true }}
-    className="absolute top-20 right-20 border-4 border-accent text-accent px-8 py-4 font-black text-4xl tracking-[0.2em] uppercase select-none pointer-events-none opacity-20"
+    className="absolute top-10 right-6 md:top-20 md:right-20 border-4 border-accent text-accent px-4 py-2 md:px-8 md:py-4 font-black text-2xl md:text-4xl tracking-[0.2em] uppercase select-none pointer-events-none opacity-10 md:opacity-20 z-0"
   >
     SEALED_TEXT
   </motion.div>
@@ -662,8 +662,8 @@ export default function App() {
               <div className="h-px w-16 bg-accent/30" />
             </motion.div>
 
-            <div className="relative inline-block mb-12 w-full">
-              <h1 className="text-4xl sm:text-6xl md:text-9xl lg:text-[13rem] font-display font-black leading-[0.75] tracking-tighter uppercase italic glow-text animate-flicker break-words">
+            <div className="relative inline-block mb-12 w-full max-w-full overflow-hidden">
+              <h1 className="text-3xl sm:text-6xl md:text-9xl lg:text-[13rem] font-display font-black leading-[0.9] md:leading-[0.75] tracking-tighter uppercase italic glow-text animate-flicker break-words overflow-wrap-anywhere">
                 <GlitchText text="THE SEVENTH" /> <br />
                 <span className="text-accent not-italic">SEED</span> <br />
                 <span className="text-white/10">HAS TAKEN ROOT.</span>
@@ -676,39 +676,39 @@ export default function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 2, duration: 2.5 }}
-              className="text-white/30 text-xl md:text-4xl max-w-4xl mx-auto mb-20 font-serif italic leading-[1.1] tracking-tight"
+              className="text-white/30 text-lg md:text-4xl max-w-4xl mx-auto mb-12 md:mb-20 font-serif italic leading-tight md:leading-[1.1] tracking-tight"
             >
               "They buried the truth for a reason. The offering waits in the dark, and the first to decipher the scripture claims the harvest."
             </motion.p>
             
-            <motion.div 
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2.5, duration: 1.5 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-16"
-            >
-              <a 
-                href="https://youtube.com/@VIISeed" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="group relative px-20 py-10 bg-accent text-black font-black overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_80px_rgba(139,0,0,0.4)]"
+              <motion.div 
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 2.5, duration: 1.5 }}
+                className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-16 w-full px-4 sm:px-0"
               >
-                <div className="absolute inset-0 bg-white/40 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[0.16, 1, 0.3, 1]" />
-                <span className="relative flex items-center gap-8 tracking-[0.4em] text-xs font-mono">
-                  BEAR_WITNESS
-                  <Play size={24} fill="currentColor" />
-                </span>
-              </a>
-              
-              <a 
-                href="#about" 
-                className="group px-20 py-10 bg-transparent hover:bg-accent/5 text-white/40 hover:text-accent border border-white/10 hover:border-accent/30 transition-all duration-700 relative overflow-hidden"
-              >
-                <span className="relative font-mono font-bold tracking-[0.4em] text-xs">
-                  READ_SCRIPTURE
-                </span>
-              </a>
-            </motion.div>
+                <a 
+                  href="https://youtube.com/@VIISeed" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="group relative w-full sm:w-auto px-6 sm:px-12 md:px-20 py-4 sm:py-6 md:py-10 bg-accent text-black font-black overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_80px_rgba(139,0,0,0.4)] text-center"
+                >
+                  <div className="absolute inset-0 bg-white/40 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[0.16, 1, 0.3, 1]" />
+                  <span className="relative flex items-center justify-center gap-4 md:gap-8 tracking-[0.4em] text-[10px] md:text-xs font-mono">
+                    BEAR_WITNESS
+                    <Play className="w-[14px] h-[14px] md:w-[18px] md:h-[18px]" fill="currentColor" />
+                  </span>
+                </a>
+                
+                <a 
+                  href="#about" 
+                  className="group w-full sm:w-auto px-6 sm:px-12 md:px-20 py-4 sm:py-6 md:py-10 bg-transparent hover:bg-accent/5 text-white/40 hover:text-accent border border-white/10 hover:border-accent/30 transition-all duration-700 relative overflow-hidden text-center"
+                >
+                  <span className="relative font-mono font-bold tracking-[0.4em] text-[10px] md:text-xs">
+                    READ_SCRIPTURE
+                  </span>
+                </a>
+              </motion.div>
           </motion.div>
         </div>
 
@@ -728,7 +728,7 @@ export default function App() {
       </section>
 
       {/* About Section - Dossier Style */}
-      <section id="about" className="py-80 relative border-t border-white/5 overflow-hidden">
+      <section id="about" className="py-20 md:py-80 relative border-t border-white/5 overflow-hidden">
         <ClassifiedStamp />
         <div className="absolute top-0 right-0 w-1/2 h-full bg-accent/[0.02] -skew-x-12 translate-x-1/4 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -764,7 +764,7 @@ export default function App() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.5 }}
-                className="col-span-2 relative aspect-video overflow-hidden border border-white/10 grayscale hover:grayscale-0 transition-all duration-1000 group"
+                className="sm:col-span-2 relative aspect-video overflow-hidden border border-white/10 grayscale hover:grayscale-0 transition-all duration-1000 group"
               >
                 <img 
                   src="https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&q=80&w=1080" 
@@ -776,23 +776,23 @@ export default function App() {
                   height="608"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60" />
-                <div className="absolute top-8 left-8 flex items-center gap-4">
-                  <div className="w-3 h-3 rounded-full bg-red-600 animate-pulse" />
-                  <span className="text-xs font-mono tracking-[0.5em] text-red-500 uppercase font-bold">REC // SEAL_01</span>
+                <div className="absolute top-4 left-4 md:top-8 md:left-8 flex items-center gap-4">
+                  <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-red-600 animate-pulse" />
+                  <span className="text-[10px] md:text-xs font-mono tracking-[0.5em] text-red-500 uppercase font-bold">REC // SEAL_01</span>
                 </div>
-                <div className="absolute bottom-8 right-8 text-[10px] font-mono text-white/30 uppercase tracking-widest">
+                <div className="absolute bottom-4 right-4 md:bottom-8 md:right-8 text-[8px] md:text-[10px] font-mono text-white/30 uppercase tracking-widest">
                   TIMESTAMP: 03:33:33
                 </div>
               </motion.div>
-              <div className="aspect-auto sm:aspect-square border border-white/5 flex flex-col justify-center p-10 bg-white/[0.02] hover:bg-accent/[0.05] transition-colors duration-500 min-h-[200px]">
-                <span className="text-[11px] font-mono text-accent mb-6 tracking-widest">VERSE_A</span>
-                <h4 className="text-3xl sm:text-4xl font-display font-black leading-none mb-6 uppercase tracking-tighter">RAW <br /> TESTIMONY</h4>
-                <p className="text-xs text-white/20 font-mono leading-relaxed uppercase tracking-widest">UNFILTERED POV PERSPECTIVE FROM THE DAMNED.</p>
+              <div className="border border-white/5 flex flex-col justify-center p-8 md:p-10 bg-white/[0.02] hover:bg-accent/[0.05] transition-colors duration-500 min-h-[180px] md:min-h-[200px]">
+                <span className="text-[10px] font-mono text-accent mb-4 md:mb-6 tracking-widest">VERSE_A</span>
+                <h4 className="text-2xl sm:text-4xl font-display font-black leading-tight mb-4 md:mb-6 uppercase tracking-tighter">RAW <br /> TESTIMONY</h4>
+                <p className="text-[10px] text-white/20 font-mono leading-relaxed uppercase tracking-widest">UNFILTERED POV PERSPECTIVE FROM THE DAMNED.</p>
               </div>
-              <div className="aspect-auto sm:aspect-square border border-white/5 flex flex-col justify-center p-10 bg-white/[0.02] hover:bg-accent/[0.05] transition-colors duration-500 min-h-[200px]">
-                <span className="text-[11px] font-mono text-accent mb-6 tracking-widest">VERSE_B</span>
-                <h4 className="text-3xl sm:text-4xl font-display font-black leading-none mb-6 uppercase tracking-tighter">AI <br /> REVELATION</h4>
-                <p className="text-xs text-white/20 font-mono leading-relaxed uppercase tracking-widest">ENVIRONMENTAL GENERATION VIA NEURAL NETWORKS.</p>
+              <div className="border border-white/5 flex flex-col justify-center p-8 md:p-10 bg-white/[0.02] hover:bg-accent/[0.05] transition-colors duration-500 min-h-[180px] md:min-h-[200px]">
+                <span className="text-[10px] font-mono text-accent mb-4 md:mb-6 tracking-widest">VERSE_B</span>
+                <h4 className="text-2xl sm:text-4xl font-display font-black leading-tight mb-4 md:mb-6 uppercase tracking-tighter">AI <br /> REVELATION</h4>
+                <p className="text-[10px] text-white/20 font-mono leading-relaxed uppercase tracking-widest">ENVIRONMENTAL GENERATION VIA NEURAL NETWORKS.</p>
               </div>
             </div>
           </div>
@@ -800,7 +800,7 @@ export default function App() {
       </section>
 
       {/* How it Works - Technical Grid */}
-      <section id="how-it-works" className="py-80 relative border-t border-white/5 bg-black overflow-hidden">
+      <section id="how-it-works" className="py-20 md:py-80 relative border-t border-white/5 bg-black overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
         </div>
@@ -809,7 +809,7 @@ export default function App() {
             THE <br /> <GlitchText text="COVENANT" />
           </SectionHeading>
           
-          <div className="grid md:grid-cols-3 border-l border-t border-white/5 mt-32">
+          <div className="grid md:grid-cols-3 border-l border-t border-white/5 mt-16 md:mt-32">
             {[
               {
                 title: "BEAR_WITNESS",
@@ -833,7 +833,7 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.2, duration: 1 }}
-                className="p-20 border-r border-b border-white/5 group hover:bg-accent/[0.03] transition-all duration-700 relative overflow-hidden"
+                className="p-8 md:p-20 border-r border-b border-white/5 group hover:bg-accent/[0.03] transition-all duration-700 relative overflow-hidden"
               >
                 <div className="absolute top-0 left-1/2 w-px h-full blood-drip opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
                 <div className="absolute top-0 right-0 w-2 h-2 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -841,8 +841,8 @@ export default function App() {
                   {item.icon}
                 </div>
                 <span className="text-accent font-mono text-[10px] mb-12 block tracking-[0.4em] uppercase relative z-10">Seal_0{i+1} // Broken</span>
-                <h3 className="text-5xl font-display font-black mb-10 tracking-tighter uppercase leading-none group-hover:text-accent transition-colors group-hover:glow-text relative z-10">{item.title}</h3>
-                <p className="text-white/30 leading-[1.1] text-2xl font-serif italic relative z-10">{item.desc}</p>
+                <h3 className="text-3xl md:text-5xl font-display font-black mb-6 md:mb-10 tracking-tighter uppercase leading-none group-hover:text-accent transition-colors group-hover:glow-text relative z-10">{item.title}</h3>
+                <p className="text-lg md:text-2xl text-white/30 leading-tight md:leading-[1.1] font-serif italic relative z-10">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -892,11 +892,11 @@ export default function App() {
       </section>
 
       {/* Reward System - Technical Dossier */}
-      <section id="reward" className="py-80 relative overflow-hidden border-t border-white/5">
+      <section id="reward" className="py-20 md:py-80 relative overflow-hidden border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="grid lg:grid-cols-2 gap-32 items-center">
             <div className="relative">
-              <div className="absolute -top-20 -left-20 text-[12rem] font-display font-black text-white/[0.02] select-none pointer-events-none">OFFERING</div>
+              <div className="absolute -top-10 -left-10 md:-top-20 md:-left-20 text-6xl md:text-[12rem] font-display font-black text-white/[0.02] select-none pointer-events-none">OFFERING</div>
               <SectionHeading number="03" subtitle="The offering is real, verifiable, and secured by the blockchain.">
                 THE <br /> <GlitchText text="OFFERING" />
               </SectionHeading>
@@ -933,7 +933,7 @@ export default function App() {
               <div className="bg-black/60 p-12 text-center border border-white/5 relative overflow-hidden">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(139,0,0,0.05)_0%,transparent_70%)]" />
                 <span className="text-accent font-mono text-[10px] tracking-[0.6em] uppercase mb-8 block relative z-10">Current_Offering_Verified</span>
-                <div className="text-6xl sm:text-7xl md:text-9xl font-display font-black text-white tracking-tighter mb-12 leading-none relative z-10 glow-text">
+                <div className="text-4xl sm:text-7xl md:text-9xl font-display font-black text-white tracking-tighter mb-8 md:mb-12 leading-none relative z-10 glow-text">
                   $12,450
                 </div>
                 <div className="flex items-center justify-center gap-4 mb-12 relative z-10">
@@ -960,7 +960,7 @@ export default function App() {
       </section>
 
       {/* Participation - Economy Dossier */}
-      <section className="py-80 bg-white/[0.01] border-t border-white/5 relative overflow-hidden">
+      <section className="py-20 md:py-80 bg-white/[0.01] border-t border-white/5 relative overflow-hidden">
         <div className="absolute top-1/2 left-0 w-full h-px bg-accent/5 -rotate-3 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <SectionHeading subtitle="Become part of the narrative. Your presence can be immortalized within the signal.">
@@ -974,7 +974,7 @@ export default function App() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1.5 }}
-              className="p-16 border border-white/10 bg-black relative overflow-hidden group"
+              className="p-8 md:p-16 border border-white/10 bg-black relative overflow-hidden group"
             >
               <div className="absolute -top-24 -right-24 w-64 h-64 rounded-full transition-colors" style={{ background: 'radial-gradient(circle, rgba(139,0,0,0.1) 0%, transparent 70%)' }} />
               <div className="relative z-10">
@@ -987,17 +987,17 @@ export default function App() {
                     <p className="text-accent text-xs font-mono tracking-[0.4em] uppercase mt-2">Permanent_Mark</p>
                   </div>
                 </div>
-                <p className="text-white/40 mb-12 leading-tight text-2xl font-serif italic">
+                <p className="text-white/40 mb-8 md:mb-12 leading-tight text-xl md:text-2xl font-serif italic">
                   Users can offer a tithe to have their name or custom mark placed as blood graffiti in future revelations. As the congregation grows, the cost to leave a mark increases. Your legacy is <RedactedText>eternal</RedactedText>.
                 </p>
-                <div className="grid grid-cols-2 gap-8 mb-16">
-                  <div className="p-8 border border-white/5 bg-white/[0.02]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 mb-16">
+                  <div className="p-6 sm:p-8 border border-white/5 bg-white/[0.02]">
                     <span className="text-white/20 text-[11px] font-mono uppercase block mb-4 tracking-widest">Blood_Tithe</span>
-                    <span className="text-4xl font-display font-black text-white tracking-tighter">$1.00</span>
+                    <span className="text-3xl sm:text-4xl font-display font-black text-white tracking-tighter">$1.00</span>
                   </div>
-                  <div className="p-8 border border-white/5 bg-white/[0.02]">
+                  <div className="p-6 sm:p-8 border border-white/5 bg-white/[0.02]">
                     <span className="text-white/20 text-[11px] font-mono uppercase block mb-4 tracking-widest">Status</span>
-                    <span className="text-4xl font-display font-black text-accent tracking-tighter">OPEN</span>
+                    <span className="text-3xl sm:text-4xl font-display font-black text-accent tracking-tighter">OPEN</span>
                   </div>
                 </div>
                 <button className="relative overflow-hidden w-full py-10 bg-accent text-black font-black tracking-[0.5em] uppercase text-xs hover:bg-white transition-all shadow-[0_0_50px_rgba(139,0,0,0.2)] group">
@@ -1015,7 +1015,7 @@ export default function App() {
               transition={{ duration: 1.5 }}
               className="space-y-16"
             >
-              <div className="p-16 border border-white/10 bg-black relative">
+              <div className="p-8 md:p-16 border border-white/10 bg-black relative">
                 <div className="flex items-center gap-8 mb-12">
                   <div className="w-16 h-16 border border-white/20 bg-white/5 flex items-center justify-center">
                     <TrendingUp className="text-white/50" size={32} />
@@ -1080,13 +1080,13 @@ export default function App() {
       </section>
 
       {/* Trust Section - The Covenant */}
-      <section className="py-80 relative border-t border-white/5">
+      <section className="py-20 md:py-80 relative border-t border-white/5">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-gradient-to-b from-accent/20 via-transparent to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
           <SectionHeading subtitle="The prophecy is built on a foundation of absolute, mathematical fairness.">
             THE <br /> <GlitchText text="TESTAMENT" />
           </SectionHeading>
-          <div className="grid md:grid-cols-3 gap-24 mt-32">
+          <div className="grid md:grid-cols-3 gap-12 md:gap-24 mt-16 md:mt-32">
             {[
               { icon: ShieldCheck, title: "Immutable Ledger", desc: <>The USDC reliquary is public. Anyone can verify the balance and transaction history at any time on the blockchain. Transparency is <RedactedText>divine</RedactedText>.</> },
               { icon: Lock, title: "Static Prophecy", desc: <>The final incantation is fixed from the start. We do not change it based on who is winning. The solution is already <RedactedText>written</RedactedText>.</> },
@@ -1115,7 +1115,7 @@ export default function App() {
       </section>
 
       {/* The Network Section */}
-      <section className="py-80 relative border-t border-white/5 overflow-hidden bg-black">
+      <section className="py-20 md:py-80 relative border-t border-white/5 overflow-hidden bg-black">
         <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black pointer-events-none" />
         
         {/* Blood Drips */}
@@ -1126,17 +1126,17 @@ export default function App() {
             <SectionHeading number="04" subtitle="The truth is not a straight line. It is a web of interconnected anomalies.">
               THE <br /> <GlitchText text="CONGREGATION" />
             </SectionHeading>
-            <div className="grid md:grid-cols-2 gap-16 mt-24 text-left w-full">
+            <div className="grid md:grid-cols-2 gap-8 md:gap-16 mt-12 md:mt-24 text-left w-full">
               <motion.div 
                 whileHover={{ scale: 1.02 }}
-                className="p-12 border border-white/10 bg-black/40 backdrop-blur-xl relative group overflow-hidden"
+                className="p-8 md:p-12 border border-white/10 bg-black/40 backdrop-blur-xl relative group overflow-hidden"
               >
                 <div className="absolute top-0 left-1/2 w-px h-full blood-drip opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
                 <div className="absolute top-0 left-0 w-full h-1 bg-accent/20" />
                 <div className="absolute top-0 right-0 p-4 font-mono text-[10px] text-accent/40">CHOIR_01 // SERAPHIM</div>
                 <div className="relative z-10">
-                  <h4 className="text-4xl font-display font-black mb-8 uppercase tracking-tighter text-accent group-hover:glow-text transition-all">Omnipresent Signs</h4>
-                  <p className="text-white/40 text-2xl font-serif italic leading-tight mb-12">
+                  <h4 className="text-3xl md:text-4xl font-display font-black mb-6 md:mb-8 uppercase tracking-tighter text-accent group-hover:glow-text transition-all">Omnipresent Signs</h4>
+                  <p className="text-white/40 text-xl md:text-2xl font-serif italic leading-tight mb-8 md:mb-12">
                     The mystery extends beyond YouTube. Check descriptions, source code of linked sites, and even metadata of shared files. Every byte could be a <RedactedText>revelation</RedactedText>.
                   </p>
                   <div className="flex items-center gap-4 opacity-20 group-hover:opacity-100 transition-opacity">
@@ -1147,14 +1147,14 @@ export default function App() {
               </motion.div>
               <motion.div 
                 whileHover={{ scale: 1.02 }}
-                className="p-12 border border-white/10 bg-black/40 backdrop-blur-xl relative group overflow-hidden"
+                className="p-8 md:p-12 border border-white/10 bg-black/40 backdrop-blur-xl relative group overflow-hidden"
               >
                 <div className="absolute top-0 left-1/2 w-px h-full blood-drip opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
                 <div className="absolute top-0 left-0 w-full h-1 bg-accent/20" />
                 <div className="absolute top-0 right-0 p-4 font-mono text-[10px] text-accent/40">CHOIR_02 // CHERUBIM</div>
                 <div className="relative z-10">
-                  <h4 className="text-4xl font-display font-black mb-8 uppercase tracking-tighter text-accent group-hover:glow-text transition-all">Collective Faith</h4>
-                  <p className="text-white/40 text-2xl font-serif italic leading-tight mb-12">
+                  <h4 className="text-3xl md:text-4xl font-display font-black mb-6 md:mb-8 uppercase tracking-tighter text-accent group-hover:glow-text transition-all">Collective Faith</h4>
+                  <p className="text-white/40 text-xl md:text-2xl font-serif italic leading-tight mb-8 md:mb-12">
                     No one person can solve this alone. Join the collective effort. Share your visions, debunk false prophets, and build the map together. The watchers are <RedactedText>listening</RedactedText>.
                   </p>
                   <div className="flex items-center gap-4 opacity-20 group-hover:opacity-100 transition-opacity">
@@ -1169,7 +1169,7 @@ export default function App() {
       </section>
 
       {/* FAQ Section - Intelligence Debriefing */}
-      <section id="faq" className="py-80 bg-black border-t border-white/5 relative overflow-hidden">
+      <section id="faq" className="py-20 md:py-80 bg-black border-t border-white/5 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')] opacity-5 pointer-events-none" />
         
         {/* Blood Drips */}
