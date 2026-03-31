@@ -483,7 +483,7 @@ const RedactedText = ({ children }: { children: React.ReactNode }) => (
 );
 
 const SectionHeading = ({ children, subtitle, number }: { children: React.ReactNode, subtitle?: string, number?: string }) => (
-  <div className="mb-16 md:mb-32 relative">
+  <div className="mb-16 md:mb-32 relative text-center flex flex-col items-center">
     {number && (
       <motion.div 
         initial={{ opacity: 0, x: -20 }}
@@ -502,12 +502,12 @@ const SectionHeading = ({ children, subtitle, number }: { children: React.ReactN
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-      className="relative"
+      className="relative w-full"
     >
-      <h2 className="text-3xl sm:text-6xl md:text-9xl font-display font-black mb-6 md:mb-8 tracking-tighter uppercase leading-[0.9] md:leading-[0.8] glow-text break-words overflow-wrap-anywhere">
+      <h2 className="text-3xl sm:text-6xl md:text-9xl font-display font-black mb-6 md:mb-8 tracking-tighter uppercase leading-[0.9] md:leading-[0.8] glow-text break-words overflow-wrap-anywhere px-4">
         {children}
       </h2>
-      <div className="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-accent/30" />
+      <div className="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-accent/30 hidden sm:block" />
     </motion.div>
     {subtitle && (
       <motion.p 
@@ -515,7 +515,7 @@ const SectionHeading = ({ children, subtitle, number }: { children: React.ReactN
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.3, duration: 1 }}
-        className="text-white/40 max-w-2xl text-lg md:text-2xl font-serif italic leading-tight tracking-tight border-l-2 border-accent/10 pl-6 md:pl-8 mt-6 md:mt-8"
+        className="text-white/40 max-w-2xl text-lg md:text-2xl font-serif italic leading-tight tracking-tight border-l-2 sm:border-l-0 sm:border-t-2 border-accent/10 pl-6 sm:pl-0 sm:pt-6 mt-6 md:mt-8"
       >
         {subtitle}
       </motion.p>
@@ -574,7 +574,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <main className="min-h-screen font-sans selection:bg-accent selection:text-black bg-black text-white">
+    <main className="min-h-screen w-full overflow-x-hidden font-sans selection:bg-accent selection:text-black bg-black text-white">
       <AnimatePresence>
         {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
       </AnimatePresence>
@@ -662,8 +662,8 @@ export default function App() {
               <div className="h-px w-16 bg-accent/30" />
             </motion.div>
 
-            <div className="relative inline-block mb-12 w-full max-w-full overflow-hidden">
-              <h1 className="text-3xl sm:text-6xl md:text-9xl lg:text-[13rem] font-display font-black leading-[0.9] md:leading-[0.75] tracking-tighter uppercase italic glow-text animate-flicker break-words overflow-wrap-anywhere">
+            <div className="relative inline-block mb-12 w-full max-w-full overflow-hidden px-4">
+              <h1 className="text-4xl sm:text-6xl md:text-9xl lg:text-[13rem] font-display font-black leading-[0.9] md:leading-[0.75] tracking-tighter uppercase italic glow-text animate-flicker break-words overflow-wrap-anywhere text-center">
                 <GlitchText text="THE SEVENTH" /> <br />
                 <span className="text-accent not-italic">SEED</span> <br />
                 <span className="text-white/10">HAS TAKEN ROOT.</span>
@@ -865,24 +865,24 @@ export default function App() {
             <SectionHeading subtitle="At the end of the tribulation lies the Seventh Seed.">
               THE <br /> <GlitchText text="TABERNACLE" />
             </SectionHeading>
-            <div className="grid md:grid-cols-2 gap-12 text-left mt-24">
-              <div className="p-12 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-500 relative group">
+            <div className="grid md:grid-cols-2 gap-8 md:gap-12 text-left mt-16 md:mt-24">
+              <div className="p-8 md:p-12 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-500 relative group">
                 <div className="absolute top-0 left-0 w-1 h-full bg-accent scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-500" />
-                <h4 className="text-3xl font-display font-black mb-6 flex items-center gap-4 uppercase tracking-tighter">
+                <h4 className="text-2xl md:text-3xl font-display font-black mb-6 flex items-center gap-4 uppercase tracking-tighter">
                   <div className="w-3 h-3 rounded-full bg-accent" />
                   The Sealed Reliquary
                 </h4>
-                <p className="text-white/30 text-xl font-serif italic leading-tight">
+                <p className="text-white/30 text-lg md:text-xl font-serif italic leading-tight">
                   There is a digital reliquary containing the final offering. It is protected by a complex, multi-layered incantation that can only be constructed by witnessing every revelation.
                 </p>
               </div>
-              <div className="p-12 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-500 relative group">
+              <div className="p-8 md:p-12 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-500 relative group">
                 <div className="absolute top-0 left-0 w-1 h-full bg-accent scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-500" />
-                <h4 className="text-3xl font-display font-black mb-6 flex items-center gap-4 uppercase tracking-tighter">
+                <h4 className="text-2xl md:text-3xl font-display font-black mb-6 flex items-center gap-4 uppercase tracking-tighter">
                   <div className="w-3 h-3 rounded-full bg-accent" />
                   The Chosen One
                 </h4>
-                <p className="text-white/30 text-xl font-serif italic leading-tight">
+                <p className="text-white/30 text-lg md:text-xl font-serif italic leading-tight">
                   Only one soul can be the first to break the seals. The moment the incantation is spoken and the offering is claimed, the prophecy is fulfilled.
                 </p>
               </div>
@@ -901,18 +901,18 @@ export default function App() {
                 THE <br /> <GlitchText text="OFFERING" />
               </SectionHeading>
               <div className="space-y-20">
-                <div className="flex gap-10 group">
+                <div className="flex gap-6 md:gap-10 group">
                   <span className="font-mono text-accent text-sm mt-2">01</span>
-                  <div className="p-8 border-l border-white/10 group-hover:border-accent transition-colors">
-                    <h4 className="text-4xl font-display font-black tracking-tight uppercase mb-6">USDC_RELIQUARY</h4>
-                    <p className="text-white/30 text-2xl font-serif italic leading-tight">The offering is held in a public USDC wallet, ensuring stability and instant global accessibility. No false prophets. No <RedactedText>delays</RedactedText>.</p>
+                  <div className="p-6 md:p-8 border-l border-white/10 group-hover:border-accent transition-colors">
+                    <h4 className="text-2xl sm:text-4xl font-display font-black tracking-tight uppercase mb-6 break-words">USDC_RELIQUARY</h4>
+                    <p className="text-white/30 text-xl md:text-2xl font-serif italic leading-tight">The offering is held in a public USDC wallet, ensuring stability and instant global accessibility. No false prophets. No <RedactedText>delays</RedactedText>.</p>
                   </div>
                 </div>
-                <div className="flex gap-10 group">
+                <div className="flex gap-6 md:gap-10 group">
                   <span className="font-mono text-accent text-sm mt-2">02</span>
-                  <div className="p-8 border-l border-white/10 group-hover:border-accent transition-colors">
-                    <h4 className="text-4xl font-display font-black tracking-tight uppercase mb-6">COMPOUNDING_TITHE</h4>
-                    <p className="text-white/30 text-2xl font-serif italic leading-tight">The offering grows with every interaction, donation, and revelation. The stakes only go <RedactedText>up</RedactedText>.</p>
+                  <div className="p-6 md:p-8 border-l border-white/10 group-hover:border-accent transition-colors">
+                    <h4 className="text-2xl sm:text-4xl font-display font-black tracking-tight uppercase mb-6 break-words">COMPOUNDING_TITHE</h4>
+                    <p className="text-white/30 text-xl md:text-2xl font-serif italic leading-tight">The offering grows with every interaction, donation, and revelation. The stakes only go <RedactedText>up</RedactedText>.</p>
                   </div>
                 </div>
               </div>
@@ -967,24 +967,24 @@ export default function App() {
             THE <br /> <GlitchText text="TITHE" />
           </SectionHeading>
 
-          <div className="grid lg:grid-cols-2 gap-24">
-            {/* Graffiti System */}
-            <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.5 }}
-              className="p-8 md:p-16 border border-white/10 bg-black relative overflow-hidden group"
-            >
+            <div className="grid lg:grid-cols-2 gap-12 md:gap-24">
+              {/* Graffiti System */}
+              <motion.div 
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5 }}
+                className="p-6 md:p-16 border border-white/10 bg-black relative overflow-hidden group"
+              >
               <div className="absolute -top-24 -right-24 w-64 h-64 rounded-full transition-colors" style={{ background: 'radial-gradient(circle, rgba(139,0,0,0.1) 0%, transparent 70%)' }} />
               <div className="relative z-10">
-                <div className="flex items-center gap-8 mb-12">
-                  <div className="w-20 h-20 border border-accent/30 bg-accent/5 flex items-center justify-center">
-                    <PenTool className="text-accent" size={40} />
+                <div className="flex items-center gap-6 md:gap-8 mb-12">
+                  <div className="w-16 h-16 md:w-20 md:h-20 border border-accent/30 bg-accent/5 flex items-center justify-center shrink-0">
+                    <PenTool className="text-accent" size={32} />
                   </div>
                   <div>
-                    <h3 className="text-4xl font-display font-black tracking-tight uppercase">Blood Inscription</h3>
-                    <p className="text-accent text-xs font-mono tracking-[0.4em] uppercase mt-2">Permanent_Mark</p>
+                    <h3 className="text-2xl sm:text-4xl font-display font-black tracking-tight uppercase">Blood Inscription</h3>
+                    <p className="text-accent text-[10px] font-mono tracking-[0.4em] uppercase mt-2">Permanent_Mark</p>
                   </div>
                 </div>
                 <p className="text-white/40 mb-8 md:mb-12 leading-tight text-xl md:text-2xl font-serif italic">
@@ -1013,14 +1013,14 @@ export default function App() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1.5 }}
-              className="space-y-16"
+              className="space-y-8 md:space-y-16"
             >
-              <div className="p-8 md:p-16 border border-white/10 bg-black relative">
-                <div className="flex items-center gap-8 mb-12">
-                  <div className="w-16 h-16 border border-white/20 bg-white/5 flex items-center justify-center">
-                    <TrendingUp className="text-white/50" size={32} />
+              <div className="p-6 md:p-16 border border-white/10 bg-black relative">
+                <div className="flex items-center gap-6 md:gap-8 mb-12">
+                  <div className="w-12 h-12 md:w-16 md:h-16 border border-white/20 bg-white/5 flex items-center justify-center shrink-0">
+                    <TrendingUp className="text-white/50" size={24} />
                   </div>
-                  <h4 className="text-3xl font-display font-black tracking-tight uppercase">Tithe Allocation</h4>
+                  <h4 className="text-2xl md:text-3xl font-display font-black tracking-tight uppercase">Tithe Allocation</h4>
                 </div>
                 <div className="space-y-12">
                   <div>
@@ -1059,15 +1059,15 @@ export default function App() {
 
               <motion.div 
                 whileHover={{ x: 20 }}
-                className="p-12 border border-white/10 bg-black flex items-center justify-between group cursor-pointer hover:bg-accent/[0.05] transition-all duration-500"
+                className="p-8 md:p-12 border border-white/10 bg-black flex items-center justify-between group cursor-pointer hover:bg-accent/[0.05] transition-all duration-500"
               >
-                <div className="flex items-center gap-8">
-                  <div className="w-16 h-16 border border-accent/20 bg-accent/5 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <DollarSign className="text-accent" size={32} />
+                <div className="flex items-center gap-6 md:gap-8">
+                  <div className="w-12 h-12 md:w-16 md:h-16 border border-accent/20 bg-accent/5 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                    <DollarSign className="text-accent" size={24} />
                   </div>
                   <div>
-                    <h4 className="text-3xl font-display font-black tracking-tight uppercase">Direct Contribution</h4>
-                    <p className="text-white/20 text-lg font-serif italic">Increase the stakes immediately</p>
+                    <h4 className="text-xl md:text-3xl font-display font-black tracking-tight uppercase">Direct Contribution</h4>
+                    <p className="text-white/20 text-sm md:text-lg font-serif italic">Increase the stakes immediately</p>
                   </div>
                 </div>
                 <div className="w-16 h-16 border border-white/10 flex items-center justify-center group-hover:border-accent group-hover:text-accent transition-all">
@@ -1179,7 +1179,7 @@ export default function App() {
           <SectionHeading number="05" subtitle="Everything you need to know before you bear witness.">
             APOCRYPHAL <br /> <GlitchText text="TEXTS" />
           </SectionHeading>
-          <div className="mt-32 space-y-8">
+          <div className="mt-16 md:mt-32 space-y-4 md:space-y-8">
             <FAQItem 
               question="Is the offering real?" 
               answer={<>Yes. The offering is held in a public USDC wallet (0x71C765...d8976F). You can verify the balance on Etherscan or any other blockchain explorer. The chosen one will receive the private keys to the reliquary or a direct transfer upon speaking the correct incantation. This is <RedactedText>verified</RedactedText>.</>} 
@@ -1202,16 +1202,16 @@ export default function App() {
             />
           </div>
           
-          <div className="mt-40 p-12 border border-white/10 bg-white/[0.02] relative overflow-hidden">
+          <div className="mt-20 md:mt-40 p-8 md:p-12 border border-white/10 bg-white/[0.02] relative overflow-hidden">
             <div className="absolute top-0 left-0 w-1 h-full bg-accent" />
             <div className="absolute top-0 right-12 w-px h-32 blood-drip animate-[pulse_4s_ease-in-out_infinite]" />
-            <div className="flex items-start gap-8 relative z-10">
-              <div className="p-4 bg-accent/10 text-accent">
+            <div className="flex flex-col sm:flex-row items-start gap-6 md:gap-8 relative z-10">
+              <div className="p-4 bg-accent/10 text-accent shrink-0">
                 <Shield size={24} />
               </div>
               <div>
-                <h4 className="text-2xl font-display font-black uppercase tracking-tighter mb-4">Divine_Judgment</h4>
-                <p className="text-white/30 font-serif italic leading-relaxed">
+                <h4 className="text-xl md:text-2xl font-display font-black uppercase tracking-tighter mb-4">Divine_Judgment</h4>
+                <p className="text-white/30 text-sm md:text-base font-serif italic leading-relaxed">
                   All signs are generated and verified by the core system. Any attempt to manipulate the congregation or bypass the covenant will result in immediate <RedactedText>damnation</RedactedText>. The seals must be broken, not forced.
                 </p>
               </div>
@@ -1221,56 +1221,56 @@ export default function App() {
       </section>
 
       {/* Footer */}
-      <footer className="py-48 border-t border-white/5 relative overflow-hidden bg-black">
+      <footer className="py-24 md:py-48 border-t border-white/5 relative overflow-hidden bg-black">
         <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-20" />
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col lg:flex-row justify-between items-start gap-32">
-            <div className="flex flex-col items-start gap-12">
+          <div className="flex flex-col lg:flex-row justify-between items-start gap-16 md:gap-32">
+            <div className="flex flex-col items-start gap-8 md:gap-12">
               <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(139,0,0,0.4)] overflow-hidden border border-accent/30">
+                <div className="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(139,0,0,0.4)] overflow-hidden border border-accent/30">
                   <img src="https://yt3.googleusercontent.com/aK1Hohp42hmjzy2ok3SgHD5wHXlw-dU4KnPRLsViWLfsi8iMkqPtMqGbVfARImmeuLpXDa_gxg=s160-c-k-c0x00ffffff-no-rj" alt="Seventh Seed Eye Logo" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                 </div>
-                <span className="font-display font-black text-4xl tracking-tighter uppercase">SEVENTH SEED</span>
+                <span className="font-display font-black text-2xl md:text-4xl tracking-tighter uppercase">SEVENTH SEED</span>
               </div>
-              <p className="text-white/20 text-2xl max-w-md font-serif italic leading-tight">
+              <p className="text-white/20 text-lg md:text-2xl max-w-md font-serif italic leading-tight">
                 "The watchers descend from the heavens. The seals are breaking in the dark. End of <RedactedText>revelation</RedactedText>."
               </p>
-              <div className="flex gap-8">
-                <a href="https://youtube.com/@VIISeed" target="_blank" rel="noopener noreferrer" aria-label="Visit our YouTube channel" className="w-12 h-12 border border-white/10 flex items-center justify-center hover:border-accent hover:text-accent transition-all">
-                  <Youtube size={20} />
+              <div className="flex gap-6 md:gap-8">
+                <a href="https://youtube.com/@VIISeed" target="_blank" rel="noopener noreferrer" aria-label="Visit our YouTube channel" className="w-10 h-10 md:w-12 md:h-12 border border-white/10 flex items-center justify-center hover:border-accent hover:text-accent transition-all">
+                  <Youtube size={18} />
                 </a>
-                <a href="#" aria-label="Search the archives" className="w-12 h-12 border border-white/10 flex items-center justify-center hover:border-accent hover:text-accent transition-all">
-                  <Search size={20} />
+                <a href="#" aria-label="Search the archives" className="w-10 h-10 md:w-12 md:h-12 border border-white/10 flex items-center justify-center hover:border-accent hover:text-accent transition-all">
+                  <Search size={18} />
                 </a>
               </div>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-24">
-              <div className="space-y-8">
-                <h5 className="text-[11px] font-mono tracking-[0.5em] uppercase text-white/40 font-bold">Scripture</h5>
-                <ul className="space-y-6 text-sm font-mono tracking-widest uppercase">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-12 md:gap-24 w-full lg:w-auto">
+              <div className="space-y-6 md:space-y-8">
+                <h5 className="text-[10px] md:text-[11px] font-mono tracking-[0.5em] uppercase text-white/40 font-bold">Scripture</h5>
+                <ul className="space-y-4 md:space-y-6 text-[10px] md:text-sm font-mono tracking-widest uppercase">
                   <li><a href="#about" className="text-white/30 hover:text-accent transition-colors">The_Genesis</a></li>
                   <li><a href="#how-it-works" className="text-white/30 hover:text-accent transition-colors">The_Covenant</a></li>
                   <li><a href="#reward" className="text-white/30 hover:text-accent transition-colors">The_Offering</a></li>
                 </ul>
               </div>
-              <div className="space-y-8">
-                <h5 className="text-[11px] font-mono tracking-[0.5em] uppercase text-white/40 font-bold">Apocrypha</h5>
-                <ul className="space-y-6 text-sm font-mono tracking-widest uppercase">
+              <div className="space-y-6 md:space-y-8">
+                <h5 className="text-[10px] md:text-[11px] font-mono tracking-[0.5em] uppercase text-white/40 font-bold">Apocrypha</h5>
+                <ul className="space-y-4 md:space-y-6 text-[10px] md:text-sm font-mono tracking-widest uppercase">
                   <li><a href="#faq" className="text-white/30 hover:text-accent transition-colors">Texts</a></li>
                   <li><a href="#" className="text-white/30 hover:text-accent transition-colors">Relics</a></li>
                   <li><a href="#" className="text-white/30 hover:text-accent transition-colors">Tabernacle</a></li>
                 </ul>
               </div>
-              <div className="space-y-8 col-span-2 md:col-span-1">
-                <h5 className="text-[11px] font-mono tracking-[0.5em] uppercase text-white/40 font-bold">Commandments</h5>
-                <ul className="space-y-6 text-sm font-mono tracking-widest uppercase">
+              <div className="space-y-6 md:space-y-8 col-span-2 md:col-span-1">
+                <h5 className="text-[10px] md:text-[11px] font-mono tracking-[0.5em] uppercase text-white/40 font-bold">Commandments</h5>
+                <ul className="space-y-4 md:space-y-6 text-[10px] md:text-sm font-mono tracking-widest uppercase">
                   <li><a href="#" className="text-white/30 hover:text-accent transition-colors">Privacy_Lvl_0</a></li>
                   <li><a href="#" className="text-white/30 hover:text-accent transition-colors">Terms_of_Faith</a></li>
                 </ul>
               </div>
             </div>
           </div>
-          <div className="mt-48 pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-12 text-[11px] font-mono uppercase tracking-[0.6em] text-white/10">
+          <div className="mt-24 md:mt-48 pt-12 md:pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 md:gap-12 text-[9px] md:text-[11px] font-mono uppercase tracking-[0.6em] text-white/10 text-center md:text-left">
             <p>© 2026 SEVENTH SEED PROJECT. ALL RIGHTS RESERVED.</p>
             <p className="flex items-center gap-4">
               <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
