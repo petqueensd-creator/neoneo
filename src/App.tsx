@@ -1,0 +1,1233 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import React, { useState, useEffect, useRef, Suspense } from 'react';
+import { motion, AnimatePresence, useMotionValue, useMotionTemplate } from 'motion/react';
+import { 
+  Play, 
+  Search, 
+  Lock, 
+  Wallet, 
+  PenTool, 
+  ShieldCheck, 
+  ChevronDown, 
+  ExternalLink,
+  Youtube,
+  Info,
+  HelpCircle,
+  TrendingUp,
+  DollarSign,
+  Eye,
+  Shield,
+  Key,
+  ChevronUp
+} from 'lucide-react';
+
+// --- Background Components ---
+
+const StaticTunnelBackground = () => (
+  <div className="absolute inset-0 z-0 overflow-hidden">
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(139,0,0,0.15)_0%,transparent_70%)]" />
+    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1920')] bg-cover bg-center opacity-[0.1] grayscale" aria-hidden="true" />
+    <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
+  </div>
+);
+
+// --- Components ---
+
+const GlitchText = ({ text, className }: { text: string, className?: string }) => {
+  return (
+    <div className={`relative inline-block ${className}`}>
+      <span className="relative z-10">{text}</span>
+      <motion.span 
+        animate={{ 
+          x: [-2, 2, -1, 0, 1],
+          opacity: [0, 0.5, 0, 0.3, 0]
+        }}
+        transition={{ duration: 0.2, repeat: Infinity, repeatDelay: Math.random() * 5 }}
+        className="absolute inset-0 text-red-500 z-0 select-none"
+      >
+        {text}
+      </motion.span>
+      <motion.span 
+        animate={{ 
+          x: [2, -2, 1, 0, -1],
+          opacity: [0, 0.5, 0, 0.3, 0]
+        }}
+        transition={{ duration: 0.2, repeat: Infinity, repeatDelay: Math.random() * 5 }}
+        className="absolute inset-0 text-blue-500 z-0 select-none"
+      >
+        {text}
+      </motion.span>
+    </div>
+  );
+};
+
+const CrtEffect = () => (
+  <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden">
+    <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.1),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] pointer-events-none" />
+    <motion.div 
+      animate={{ y: ["-100%", "100%"] }}
+      transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+      className="absolute inset-0 w-full h-[10%] bg-gradient-to-b from-transparent via-white/5 to-transparent pointer-events-none"
+    />
+  </div>
+);
+
+const NoiseOverlay = () => (
+  <div className="noise-overlay fixed inset-0 z-[99] pointer-events-none opacity-[0.03]" />
+);
+
+const Scanline = () => (
+  <div className="scanline fixed inset-0 z-[98] pointer-events-none" />
+);
+
+const Vignette = () => (
+  <div className="fixed inset-0 pointer-events-none z-[101] bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.6)_70%,rgba(0,0,0,0.95)_100%)]" />
+);
+
+const Flashlight = () => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  const background = useMotionTemplate`radial-gradient(circle 400px at ${mouseX}px ${mouseY}px, rgba(139, 0, 0, 0.15), transparent 80%)`;
+
+  return (
+    <motion.div 
+      className="fixed inset-0 pointer-events-none z-[97] opacity-60"
+      style={{ background }}
+    />
+  );
+};
+
+const DustScratches = () => (
+  <div className="fixed inset-0 pointer-events-none z-[102] overflow-hidden opacity-[0.03]">
+    <motion.div 
+      animate={{ 
+        x: [-5, 5, -5],
+        y: [-5, 5, -5],
+        opacity: [0.1, 0.3, 0.1]
+      }}
+      transition={{ duration: 0.5, repeat: Infinity, ease: "linear" }}
+      className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] scale-150"
+    />
+  </div>
+);
+
+const GlitchOverlay = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const trigger = () => {
+      if (Math.random() > 0.97) {
+        setIsVisible(true);
+        setTimeout(() => setIsVisible(false), 50 + Math.random() * 150);
+      }
+    };
+    const interval = setInterval(trigger, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  if (!isVisible) return null;
+
+  return (
+    <div className="fixed inset-0 z-[200] pointer-events-none overflow-hidden opacity-30">
+      <div className="absolute inset-0 bg-accent/5" />
+      <div className="absolute top-1/4 left-0 w-full h-px bg-accent shadow-[0_0_10px_var(--color-accent)]" style={{ transform: `translateY(${Math.random() * 100}vh)` }} />
+      <div className="absolute top-3/4 left-0 w-full h-px bg-accent shadow-[0_0_10px_var(--color-accent)]" style={{ transform: `translateY(${Math.random() * 100}vh)` }} />
+    </div>
+  );
+};
+
+const MysteriousBackgroundImages = () => {
+  const [activeChar, setActiveChar] = useState<{ id: number, src: string, x: number, y: number } | null>(null);
+  
+  const characterPool = [
+    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgoAhRsNsW4Ypbrj1EQgopt_tpWTksBhY_b4Qiz6aZypfQaKDJJY4bY104PJXxvanUZfQqS4G-zxqaG9bnTbyKbLF1UzFgGKPTUsiZWd2DdUwi-81FqiDs2qe78CvtI_MsUTtdAqlqYIEBLQ04097pP8O0LUPLDbdiHZ09Jb5yezZQ07D3stImhA-qLDvk/s768/imagen1.png",
+    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjJUjcpfsiBIy7NsX3nkBu_7Qyben_qon4Ac8LRTIZ4If7VabU2FIsInU58QZGRLAEjJHmLPq6Dnwow7NXHHD8TqKjv6uepA195chwtGP-Z82dY9DqQL1E61uN7Lczakl77WH6TJ_-Gj_hJ3DcI0EiJQgy8c2RPHhqYAjfOUJlWkLSbPPk2HQA7iuNU8I/s1376/imagen2.png",
+    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiTi0wrno3FyuSgnan_AZ152aC106oapjMKa8ipWL_KfuMQnxBii-7YLdEDaroBimpk21JmBJ2poTQYENNQrkpamIeKDKqcBXIcjMMzG-1DEL6Cm7Mb1dPedkDojbPBmYaYtWQINnudDAyhls3dYWG6s729pMd2FOkI_tGZJUhW1-fVCIV7yEPTD87-NfE/s1098/imagen3.png"
+  ];
+
+  useEffect(() => {
+    let timeoutId: any;
+    const triggerNext = () => {
+      const delay = 1000 + Math.random() * 3000;
+      timeoutId = setTimeout(() => {
+        const randomSrc = characterPool[Math.floor(Math.random() * characterPool.length)];
+        setActiveChar({
+          id: Date.now(),
+          src: randomSrc,
+          x: Math.random() * 70,
+          y: Math.random() * 70
+        });
+        setTimeout(() => {
+          setActiveChar(null);
+          triggerNext();
+        }, 2000);
+      }, delay);
+    };
+    triggerNext();
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  return (
+    <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden select-none">
+      <AnimatePresence mode="wait">
+        {activeChar && (
+          <motion.img
+            key={activeChar.id}
+            src={activeChar.src}
+            alt=""
+            initial={{ opacity: 0, scale: 1.2, filter: 'blur(20px)' }}
+            animate={{ 
+              opacity: [0, 0.15, 0.1, 0.12, 0], 
+              scale: [1.1, 1.3, 1.2],
+              filter: ['blur(15px)', 'blur(10px)', 'blur(20px)']
+            }}
+            exit={{ opacity: 0, scale: 1.5, filter: 'blur(40px)' }}
+            transition={{ duration: 4, ease: "linear" }}
+            className="absolute w-[400px] h-[400px] md:w-[900px] md:h-[900px] object-contain"
+            style={{
+              top: `${activeChar.y}%`,
+              left: `${activeChar.x}%`,
+              mixBlendMode: 'screen',
+              filter: 'brightness(1.5) contrast(0.8)',
+            }}
+            referrerPolicy="no-referrer"
+          />
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
+  const [progress, setProgress] = useState(0);
+  const [status, setStatus] = useState("AWAKENING_THE_SEVENTH_SEED...");
+
+  useEffect(() => {
+    const statuses = [
+      "SUMMONING_THE_WATCHERS...",
+      "DECRYPTING_SACRED_TEXTS...",
+      "BREAKING_THE_FIRST_SEAL...",
+      "RECOVERING_APOCRYPHAL_LOGS...",
+      "COMMUNION_ESTABLISHED.",
+      "YOU_HAVE_BEEN_CHOSEN."
+    ];
+
+    let currentStatus = 0;
+    const interval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(onComplete, 1000);
+          return 100;
+        }
+        if (prev % 20 === 0 && currentStatus < statuses.length - 1) {
+          currentStatus++;
+          setStatus(statuses[currentStatus]);
+        }
+        return prev + 1;
+      });
+    }, 40);
+
+    return () => clearInterval(interval);
+  }, [onComplete]);
+
+  return (
+    <div className="fixed inset-0 z-[1000] bg-black flex flex-col items-center justify-center p-12 font-mono">
+      <div className="max-w-md w-full">
+        <div className="flex justify-between items-end mb-4">
+          <div className="space-y-1">
+            <div className="text-accent text-xs tracking-[0.4em] animate-pulse">{status}</div>
+            <div className="text-white/20 text-[10px] tracking-widest">LOCATION: UNKNOWN_SECTOR_7</div>
+          </div>
+          <div className="text-accent text-2xl font-black">{progress}%</div>
+        </div>
+        <div className="h-1 w-full bg-white/5 relative overflow-hidden">
+          <motion.div 
+            className="absolute top-0 left-0 h-full bg-accent shadow-[0_0_20px_rgba(139,0,0,0.5)]"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        <div className="mt-12 grid grid-cols-4 gap-4 opacity-20">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <div key={i} className={`h-1 bg-accent ${progress > (i * 8) ? 'opacity-100' : 'opacity-0'}`} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const SystemAlert = () => {
+  const [alert, setAlert] = useState<string | null>(null);
+
+  useEffect(() => {
+    const alerts = [
+      "UNHOLY_PRESENCE_DETECTED",
+      "SEAL_INTEGRITY_COMPROMISED",
+      "SOUL_FRAGMENTATION_IN_SECTOR_7",
+      "APOCRYPHAL_MEMORY_RECOVERED",
+      "THE_WATCHERS_ARE_ONLINE",
+      "THRESHOLD_EXCEEDED"
+    ];
+
+    const trigger = () => {
+      if (Math.random() > 0.95) {
+        setAlert(alerts[Math.floor(Math.random() * alerts.length)]);
+        setTimeout(() => setAlert(null), 3000);
+      }
+    };
+
+    const interval = setInterval(trigger, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {alert && (
+        <motion.div 
+          initial={{ opacity: 0, x: 100 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 100 }}
+          className="fixed top-32 right-12 z-[150] bg-red-950/80 border border-red-500/50 p-4 backdrop-blur-md font-mono"
+        >
+          <div className="flex items-center gap-4 text-red-500">
+            <div className="w-2 h-2 bg-red-500 rounded-full animate-ping" />
+            <span className="text-[10px] tracking-[0.3em] font-bold uppercase">System_Alert: {alert}</span>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+const Terminal = ({ lines }: { lines: string[] }) => {
+  const [currentLine, setCurrentLine] = useState(0);
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    if (currentLine >= lines.length) return;
+
+    let i = 0;
+    const interval = setInterval(() => {
+      setText(lines[currentLine].slice(0, i + 1));
+      i++;
+      if (i >= lines[currentLine].length) {
+        clearInterval(interval);
+        setTimeout(() => {
+          setCurrentLine(prev => prev + 1);
+          setText("");
+        }, 1200);
+      }
+    }, 40);
+
+    return () => clearInterval(interval);
+  }, [currentLine, lines]);
+
+  return (
+    <div className="font-mono text-[10px] text-accent/60 bg-accent/[0.02] p-6 border border-accent/10 rounded backdrop-blur-sm relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-px bg-accent/20" />
+      <div className="flex items-center gap-3 mb-4 opacity-40">
+        <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+        <span className="uppercase tracking-[0.3em]">Divine_Terminal // REVELATION_v7.0</span>
+      </div>
+      <div className="min-h-[6em] space-y-1">
+        {lines.slice(0, currentLine).map((line, i) => (
+          <div key={i} className="opacity-30">{`> ${line}`}</div>
+        ))}
+        {currentLine < lines.length && (
+          <div className="flex items-center gap-1">
+            <span className="text-accent">{`> ${text}`}</span>
+            <motion.div 
+              animate={{ opacity: [0, 1] }}
+              transition={{ duration: 0.4, repeat: Infinity }}
+              className="w-1.5 h-3 bg-accent"
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const Navbar = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [signal, setSignal] = useState(4);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    
+    const interval = setInterval(() => {
+      setSignal(Math.floor(Math.random() * 2) + 3);
+    }, 3000);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearInterval(interval);
+    };
+  }, []);
+
+  return (
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-black/80 backdrop-blur-md py-4 border-b border-white/5' : 'bg-transparent py-8'}`}>
+      <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-px h-16 blood-drip transition-opacity duration-1000 ${isScrolled ? 'opacity-100' : 'opacity-0'}`} />
+      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center relative z-10">
+        <div className="flex items-center gap-4">
+          <div className="w-10 h-10 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(139,0,0,0.3)] overflow-hidden border border-accent/30">
+            <img 
+              src="https://yt3.googleusercontent.com/aK1Hohp42hmjzy2ok3SgHD5wHXlw-dU4KnPRLsViWLfsi8iMkqPtMqGbVfARImmeuLpXDa_gxg=s160-c-k-c0x00ffffff-no-rj" 
+              alt="Seventh Seed Eye Logo" 
+              className="w-full h-full object-cover" 
+              referrerPolicy="no-referrer" 
+              width="40" 
+              height="40"
+            />
+          </div>
+          <div className="flex flex-col">
+            <span className="font-display font-bold text-xl tracking-tighter leading-none">SEVENTH SEED</span>
+            <div className="flex items-center gap-2 mt-1">
+              <div className="flex gap-0.5">
+                {[1, 2, 3, 4, 5].map(i => (
+                  <div key={i} className={`w-0.5 h-2 ${i <= signal ? 'bg-accent' : 'bg-white/10'}`} />
+                ))}
+              </div>
+              <span className="text-[8px] font-mono text-accent/60 uppercase tracking-widest">Faith_Level</span>
+            </div>
+          </div>
+        </div>
+        <div className="hidden md:flex items-center gap-8 text-[10px] font-mono tracking-[0.2em] uppercase text-white/50">
+          <a href="#about" className="hover:text-accent transition-colors">01_Genesis</a>
+          <a href="#how-it-works" className="hover:text-accent transition-colors">02_Covenant</a>
+          <a href="#reward" className="hover:text-accent transition-colors">03_Offering</a>
+          <a href="#faq" className="hover:text-accent transition-colors">04_Apocrypha</a>
+          <a href="https://youtube.com/@VIISeed" target="_blank" rel="noopener noreferrer" className="px-6 py-2 bg-accent/10 border border-accent/20 rounded-full hover:bg-accent/20 transition-all flex items-center gap-3 text-accent">
+            <Youtube size={14} />
+            Witness_Now
+          </a>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+const RedactedText = ({ children }: { children: React.ReactNode }) => (
+  <span className="relative inline-block group cursor-help">
+    <span className="bg-white text-transparent select-none group-hover:bg-accent/20 group-hover:text-accent transition-all duration-500 px-1">
+      {children}
+    </span>
+  </span>
+);
+
+const SectionHeading = ({ children, subtitle, number }: { children: React.ReactNode, subtitle?: string, number?: string }) => (
+  <div className="mb-32 relative">
+    {number && (
+      <motion.div 
+        initial={{ opacity: 0, x: -20 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        className="absolute -left-16 top-0 flex flex-col items-center gap-4 hidden lg:flex"
+      >
+        <span className="text-accent font-mono text-[10px] tracking-[0.5em] vertical-text uppercase opacity-50">
+          SECTION_{number}
+        </span>
+        <div className="w-px h-24 blood-drip opacity-50" />
+      </motion.div>
+    )}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+      className="relative"
+    >
+      <h2 className="text-6xl md:text-9xl font-display font-black mb-8 tracking-tighter uppercase leading-[0.8] glow-text">
+        {children}
+      </h2>
+      <div className="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-accent/30" />
+    </motion.div>
+    {subtitle && (
+      <motion.p 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.3, duration: 1 }}
+        className="text-white/40 max-w-2xl text-xl md:text-2xl font-serif italic leading-tight tracking-tight border-l-2 border-accent/10 pl-8 mt-8"
+      >
+        {subtitle}
+      </motion.p>
+    )}
+  </div>
+);
+
+const ClassifiedStamp = () => (
+  <motion.div 
+    initial={{ opacity: 0, scale: 1.5, rotate: -20 }}
+    whileInView={{ opacity: 0.2, scale: 1, rotate: -15 }}
+    viewport={{ once: true }}
+    className="absolute top-20 right-20 border-4 border-accent text-accent px-8 py-4 font-black text-4xl tracking-[0.2em] uppercase select-none pointer-events-none opacity-20"
+  >
+    SEALED_TEXT
+  </motion.div>
+);
+
+const FAQItem = ({ question, answer }: { question: string, answer: React.ReactNode }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className="border-b border-white/5 py-12">
+      <button 
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        className="w-full flex justify-between items-center text-left group"
+      >
+        <span className="text-3xl md:text-5xl font-display font-black tracking-tighter uppercase leading-none group-hover:text-accent transition-colors">{question}</span>
+        <div className={`w-12 h-12 border border-white/10 flex items-center justify-center transition-all duration-500 ${isOpen ? 'rotate-180 border-accent text-accent bg-accent/5' : 'text-white/30'}`}>
+          <ChevronDown size={24} />
+        </div>
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden relative"
+          >
+            <div className="absolute top-0 left-8 w-px h-full blood-drip animate-[pulse_3s_ease-in-out_infinite]" />
+            <div className="pt-12 pl-16 text-white/20 leading-tight text-2xl font-serif italic max-w-3xl">
+              {answer}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+// --- Main App ---
+
+export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  return (
+    <main className="min-h-screen font-sans selection:bg-accent selection:text-black bg-black text-white">
+      <AnimatePresence>
+        {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
+      </AnimatePresence>
+
+      <CrtEffect />
+      <NoiseOverlay />
+      <MysteriousBackgroundImages />
+      <Vignette />
+      <Flashlight />
+      <DustScratches />
+      <GlitchOverlay />
+      <SystemAlert />
+      <Navbar />
+      
+      <motion.button
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        className="fixed bottom-12 right-12 z-[60] group flex items-center gap-4 bg-black/80 backdrop-blur-md border border-white/10 p-4 hover:border-accent transition-all duration-500"
+      >
+        <span className="text-[10px] font-mono tracking-[0.4em] text-white/30 group-hover:text-accent uppercase">Return_to_Surface</span>
+        <div className="w-10 h-10 border border-white/10 flex items-center justify-center group-hover:border-accent group-hover:text-accent transition-all rotate-180">
+          <ChevronDown size={18} />
+        </div>
+      </motion.button>
+
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 overflow-hidden">
+        <Scanline />
+        <StaticTunnelBackground />
+        
+        {/* Blood Drips */}
+        <div className="absolute top-0 left-1/4 w-px h-64 blood-drip animate-[pulse_4s_ease-in-out_infinite]" />
+        <div className="absolute top-0 right-1/3 w-px h-96 blood-drip animate-[pulse_6s_ease-in-out_infinite_1s]" />
+        <div className="absolute top-0 left-2/3 w-px h-48 blood-drip animate-[pulse_5s_ease-in-out_infinite_2s]" />
+        
+        {/* Background Elements Overlays */}
+        <div className="absolute inset-0 z-1 pointer-events-none">
+          {/* Moving Atmospheric Light */}
+          <motion.div 
+            animate={{ 
+              scale: [1, 1.5, 1],
+              opacity: [0.05, 0.15, 0.05],
+              x: [-200, 200, -200],
+              y: [-100, 100, -100]
+            }}
+            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] rounded-full"
+            style={{ background: 'radial-gradient(circle, rgba(139,0,0,0.1) 0%, transparent 70%)' }}
+          />
+          
+          {/* Static Background Image with Grain */}
+          <div 
+            className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1920')] bg-cover bg-center opacity-[0.07] grayscale scale-110" 
+            style={{ fetchPriority: 'high' } as any}
+          />
+          
+          {/* Dynamic Light Flickers */}
+          <motion.div 
+            animate={{ opacity: [0.01, 0.05, 0.01, 0.08, 0.01] }}
+            transition={{ duration: 4, repeat: Infinity, times: [0, 0.1, 0.3, 0.5, 1] }}
+            className="absolute inset-0 bg-accent/5"
+          />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 flex flex-col items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }}
+            className="text-center"
+          >
+            {/* System Status Micro-text */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1, duration: 1.5 }}
+              className="flex items-center justify-center gap-8 mb-12"
+            >
+              <div className="h-px w-16 bg-accent/30" />
+              <span className="text-[10px] font-mono tracking-[0.8em] text-accent uppercase flex items-center gap-4">
+                <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
+                SIGNAL_LOST // RECOVERING_DATA...
+              </span>
+              <div className="h-px w-16 bg-accent/30" />
+            </motion.div>
+
+            <div className="relative inline-block mb-12">
+              <h1 className="text-6xl md:text-9xl lg:text-[13rem] font-display font-black leading-[0.75] tracking-tighter uppercase italic glow-text animate-flicker">
+                <GlitchText text="THE SEVENTH" /> <br />
+                <span className="text-accent not-italic">SEED</span> <br />
+                <span className="text-white/10">HAS TAKEN ROOT.</span>
+              </h1>
+              <div className="absolute -top-12 -right-12 w-32 h-32 border-t border-r border-accent/20 hidden lg:block" />
+              <div className="absolute -bottom-12 -left-12 w-32 h-32 border-b border-l border-accent/20 hidden lg:block" />
+            </div>
+
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 2, duration: 2.5 }}
+              className="text-white/30 text-xl md:text-4xl max-w-4xl mx-auto mb-20 font-serif italic leading-[1.1] tracking-tight"
+            >
+              "They buried the truth for a reason. The offering waits in the dark, and the first to decipher the scripture claims the harvest."
+            </motion.p>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2.5, duration: 1.5 }}
+              className="flex flex-col sm:flex-row items-center justify-center gap-16"
+            >
+              <a 
+                href="https://youtube.com/@VIISeed" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="group relative px-20 py-10 bg-accent text-black font-black overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_80px_rgba(139,0,0,0.4)]"
+              >
+                <div className="absolute inset-0 bg-white/40 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[0.16, 1, 0.3, 1]" />
+                <span className="relative flex items-center gap-8 tracking-[0.4em] text-xs font-mono">
+                  BEAR_WITNESS
+                  <Play size={24} fill="currentColor" />
+                </span>
+              </a>
+              
+              <a 
+                href="#about" 
+                className="group px-20 py-10 bg-transparent hover:bg-accent/5 text-white/40 hover:text-accent border border-white/10 hover:border-accent/30 transition-all duration-700 relative overflow-hidden"
+              >
+                <span className="relative font-mono font-bold tracking-[0.4em] text-xs">
+                  READ_SCRIPTURE
+                </span>
+              </a>
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* Depth Gauge / Scroll Indicator */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 3, duration: 1.5 }}
+          className="absolute bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center gap-8"
+        >
+          <div className="flex flex-col items-center gap-3">
+            <span className="text-[10px] font-mono tracking-[0.8em] text-white/10 uppercase">Current Depth: 000m</span>
+            <div className="w-px h-24 bg-gradient-to-b from-accent/50 via-accent/10 to-transparent" />
+          </div>
+          <span className="text-[11px] font-mono tracking-[0.5em] text-white/30 uppercase animate-pulse">Scroll to descend</span>
+        </motion.div>
+      </section>
+
+      {/* About Section - Dossier Style */}
+      <section id="about" className="py-80 relative border-t border-white/5 overflow-hidden">
+        <ClassifiedStamp />
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-accent/[0.02] -skew-x-12 translate-x-1/4 pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="grid lg:grid-cols-12 gap-24 items-start">
+            <div className="lg:col-span-6">
+              <SectionHeading number="01" subtitle="A living, breathing testament set in a dark, atmospheric world of biblical dread.">
+                THE <br /> <GlitchText text="GENESIS" />
+              </SectionHeading>
+              <div className="space-y-16 text-white/50 leading-[1.1] text-3xl md:text-4xl font-serif italic">
+                <p>
+                  "Follow the perspective of those who witnessed the breaking of the seals. Every video is a verse of a larger narrative, captured in a raw, found-footage style that blurs the line between scripture and reality."
+                </p>
+                <Terminal lines={[
+                  "ESTABLISHING_COMMUNION...",
+                  "DECRYPTING_SACRED_TEXTS...",
+                  "WARNING: DEMONIC_INTERFERENCE_DETECTED",
+                  "RECOVERING_FRAGMENTED_PROPHECIES...",
+                  "LOCATION: [REDACTED]",
+                  "STATUS: AWAITING_JUDGMENT"
+                ]} />
+                <div className="p-12 border border-accent/10 bg-accent/[0.03] font-mono text-sm tracking-widest leading-relaxed uppercase relative">
+                  <div className="absolute -top-3 -left-3 w-6 h-6 border-t border-l border-accent" />
+                  <div className="absolute -bottom-3 -right-3 w-6 h-6 border-b border-r border-accent" />
+                  <span className="text-accent font-bold block mb-6 text-base tracking-[0.4em]">APOCRYPHAL_REPORT // 2026</span>
+                  Our visions are crafted using advanced generation tools. While you may notice minor visual inconsistencies, every clue, number, and symbol is placed with divine intention.
+                </div>
+              </div>
+            </div>
+            
+            <div className="lg:col-span-6 grid grid-cols-2 gap-6">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5 }}
+                className="col-span-2 relative aspect-video overflow-hidden border border-white/10 grayscale hover:grayscale-0 transition-all duration-1000 group"
+              >
+                <img 
+                  src="https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&q=80&w=1080" 
+                  alt="Found footage of a dark, mysterious tunnel with a glowing red light" 
+                  className="w-full h-full object-cover opacity-30 group-hover:opacity-100 transition-all duration-1000 scale-110 group-hover:scale-100"
+                  referrerPolicy="no-referrer"
+                  loading="lazy"
+                  width="1080"
+                  height="608"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60" />
+                <div className="absolute top-8 left-8 flex items-center gap-4">
+                  <div className="w-3 h-3 rounded-full bg-red-600 animate-pulse" />
+                  <span className="text-xs font-mono tracking-[0.5em] text-red-500 uppercase font-bold">REC // SEAL_01</span>
+                </div>
+                <div className="absolute bottom-8 right-8 text-[10px] font-mono text-white/30 uppercase tracking-widest">
+                  TIMESTAMP: 03:33:33
+                </div>
+              </motion.div>
+              <div className="aspect-square border border-white/5 flex flex-col justify-center p-10 bg-white/[0.02] hover:bg-accent/[0.05] transition-colors duration-500">
+                <span className="text-[11px] font-mono text-accent mb-6 tracking-widest">VERSE_A</span>
+                <h4 className="text-4xl font-display font-black leading-none mb-6 uppercase tracking-tighter">RAW <br /> TESTIMONY</h4>
+                <p className="text-xs text-white/20 font-mono leading-relaxed uppercase tracking-widest">UNFILTERED POV PERSPECTIVE FROM THE DAMNED.</p>
+              </div>
+              <div className="aspect-square border border-white/5 flex flex-col justify-center p-10 bg-white/[0.02] hover:bg-accent/[0.05] transition-colors duration-500">
+                <span className="text-[11px] font-mono text-accent mb-6 tracking-widest">VERSE_B</span>
+                <h4 className="text-4xl font-display font-black leading-none mb-6 uppercase tracking-tighter">AI <br /> REVELATION</h4>
+                <p className="text-xs text-white/20 font-mono leading-relaxed uppercase tracking-widest">ENVIRONMENTAL GENERATION VIA NEURAL NETWORKS.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How it Works - Technical Grid */}
+      <section id="how-it-works" className="py-80 relative border-t border-white/5 bg-black overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
+        </div>
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <SectionHeading number="02" subtitle="The covenant is simple. The execution is not. Follow the signs.">
+            THE <br /> <GlitchText text="COVENANT" />
+          </SectionHeading>
+          
+          <div className="grid md:grid-cols-3 border-l border-t border-white/5 mt-32">
+            {[
+              {
+                title: "BEAR_WITNESS",
+                desc: "Clues are scattered everywhere: hidden in video frames, encoded in titles, buried in thumbnails, or whispered in the audio frequencies.",
+                icon: <Eye size={32} />
+              },
+              {
+                title: "TRIBULATION",
+                desc: "The first few signs are simple. As the prophecy unfolds, the trials become exponentially harder, requiring a congregation.",
+                icon: <TrendingUp size={32} />
+              },
+              {
+                title: "NO_SALVATION",
+                desc: "We do not offer absolution. The flock must figure it out together. Every discovery is a step closer to the end.",
+                icon: <Shield size={32} />
+              }
+            ].map((item, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.2, duration: 1 }}
+                className="p-20 border-r border-b border-white/5 group hover:bg-accent/[0.03] transition-all duration-700 relative overflow-hidden"
+              >
+                <div className="absolute top-0 left-1/2 w-px h-full blood-drip opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                <div className="absolute top-0 right-0 w-2 h-2 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="text-accent/20 group-hover:text-accent transition-colors mb-12 group-hover:scale-110 transition-transform duration-500 relative z-10">
+                  {item.icon}
+                </div>
+                <span className="text-accent font-mono text-[10px] mb-12 block tracking-[0.4em] uppercase relative z-10">Seal_0{i+1} // Broken</span>
+                <h3 className="text-5xl font-display font-black mb-10 tracking-tighter uppercase leading-none group-hover:text-accent transition-colors group-hover:glow-text relative z-10">{item.title}</h3>
+                <p className="text-white/30 leading-[1.1] text-2xl font-serif italic relative z-10">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* The Objective */}
+      <section className="py-48 relative overflow-hidden border-t border-white/5">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(139,0,0,0.03) 0%, transparent 70%)' }} />
+        
+        {/* Blood Drips */}
+        <div className="absolute top-0 left-1/3 w-px h-64 blood-drip animate-[pulse_5s_ease-in-out_infinite]" />
+        <div className="absolute top-0 right-1/4 w-px h-48 blood-drip animate-[pulse_4s_ease-in-out_infinite_1s]" />
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="max-w-5xl mx-auto text-center">
+            <div className="w-32 h-32 bg-accent/5 rounded-full flex items-center justify-center mx-auto mb-16 border border-accent/20 shadow-[0_0_50px_rgba(139,0,0,0.1)]">
+              <Lock className="text-accent" size={48} />
+            </div>
+            <SectionHeading subtitle="At the end of the tribulation lies the Seventh Seed.">
+              THE <br /> <GlitchText text="TABERNACLE" />
+            </SectionHeading>
+            <div className="grid md:grid-cols-2 gap-12 text-left mt-24">
+              <div className="p-12 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-500 relative group">
+                <div className="absolute top-0 left-0 w-1 h-full bg-accent scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-500" />
+                <h4 className="text-3xl font-display font-black mb-6 flex items-center gap-4 uppercase tracking-tighter">
+                  <div className="w-3 h-3 rounded-full bg-accent" />
+                  The Sealed Reliquary
+                </h4>
+                <p className="text-white/30 text-xl font-serif italic leading-tight">
+                  There is a digital reliquary containing the final offering. It is protected by a complex, multi-layered incantation that can only be constructed by witnessing every revelation.
+                </p>
+              </div>
+              <div className="p-12 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-500 relative group">
+                <div className="absolute top-0 left-0 w-1 h-full bg-accent scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-500" />
+                <h4 className="text-3xl font-display font-black mb-6 flex items-center gap-4 uppercase tracking-tighter">
+                  <div className="w-3 h-3 rounded-full bg-accent" />
+                  The Chosen One
+                </h4>
+                <p className="text-white/30 text-xl font-serif italic leading-tight">
+                  Only one soul can be the first to break the seals. The moment the incantation is spoken and the offering is claimed, the prophecy is fulfilled.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Reward System - Technical Dossier */}
+      <section id="reward" className="py-80 relative overflow-hidden border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-32 items-center">
+            <div className="relative">
+              <div className="absolute -top-20 -left-20 text-[12rem] font-display font-black text-white/[0.02] select-none pointer-events-none">OFFERING</div>
+              <SectionHeading number="03" subtitle="The offering is real, verifiable, and secured by the blockchain.">
+                THE <br /> <GlitchText text="OFFERING" />
+              </SectionHeading>
+              <div className="space-y-20">
+                <div className="flex gap-10 group">
+                  <span className="font-mono text-accent text-sm mt-2">01</span>
+                  <div className="p-8 border-l border-white/10 group-hover:border-accent transition-colors">
+                    <h4 className="text-4xl font-display font-black tracking-tight uppercase mb-6">USDC_RELIQUARY</h4>
+                    <p className="text-white/30 text-2xl font-serif italic leading-tight">The offering is held in a public USDC wallet, ensuring stability and instant global accessibility. No false prophets. No <RedactedText>delays</RedactedText>.</p>
+                  </div>
+                </div>
+                <div className="flex gap-10 group">
+                  <span className="font-mono text-accent text-sm mt-2">02</span>
+                  <div className="p-8 border-l border-white/10 group-hover:border-accent transition-colors">
+                    <h4 className="text-4xl font-display font-black tracking-tight uppercase mb-6">COMPOUNDING_TITHE</h4>
+                    <p className="text-white/30 text-2xl font-serif italic leading-tight">The offering grows with every interaction, donation, and revelation. The stakes only go <RedactedText>up</RedactedText>.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="relative p-8 bg-white/[0.02] border border-white/10 backdrop-blur-xl shadow-[0_0_100px_rgba(0,0,0,0.5)]"
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-accent/20" />
+              <div className="flex justify-between items-center mb-12">
+                <div className="font-mono text-[10px] text-white/30 uppercase tracking-[0.5em]">Reliquary_Status: [SEALED]</div>
+                <div className="font-mono text-[10px] text-white/30 uppercase tracking-[0.5em]">Network: ETH_MAINNET</div>
+              </div>
+              
+              <div className="bg-black/60 p-12 text-center border border-white/5 relative overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(139,0,0,0.05)_0%,transparent_70%)]" />
+                <span className="text-accent font-mono text-[10px] tracking-[0.6em] uppercase mb-8 block relative z-10">Current_Offering_Verified</span>
+                <div className="text-7xl md:text-9xl font-display font-black text-white tracking-tighter mb-12 leading-none relative z-10 glow-text">
+                  $12,450
+                </div>
+                <div className="flex items-center justify-center gap-4 mb-12 relative z-10">
+                  <div className="h-px w-8 bg-white/10" />
+                  <div className="text-white/20 text-[10px] font-mono break-all px-4 py-2 border border-white/5 bg-white/[0.01]">
+                    0x71C765...d8976F
+                  </div>
+                  <div className="h-px w-8 bg-white/10" />
+                </div>
+                <button className="relative overflow-hidden z-10 w-full py-8 bg-accent text-black font-black text-xs tracking-[0.6em] uppercase hover:bg-white transition-all duration-500 shadow-[0_0_40px_rgba(139,0,0,0.2)] group">
+                  <div className="absolute top-0 left-1/2 w-px h-full blood-drip opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                  <span className="relative z-10">VERIFY_ON_CHAIN</span>
+                </button>
+              </div>
+              
+              <div className="mt-8 grid grid-cols-3 gap-4">
+                {[1, 2, 3].map(i => (
+                  <div key={i} className="h-1 bg-accent/10" />
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Participation - Economy Dossier */}
+      <section className="py-80 bg-white/[0.01] border-t border-white/5 relative overflow-hidden">
+        <div className="absolute top-1/2 left-0 w-full h-px bg-accent/5 -rotate-3 pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <SectionHeading subtitle="Become part of the narrative. Your presence can be immortalized within the signal.">
+            THE <br /> <GlitchText text="TITHE" />
+          </SectionHeading>
+
+          <div className="grid lg:grid-cols-2 gap-24">
+            {/* Graffiti System */}
+            <motion.div 
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.5 }}
+              className="p-16 border border-white/10 bg-black relative overflow-hidden group"
+            >
+              <div className="absolute -top-24 -right-24 w-64 h-64 rounded-full transition-colors" style={{ background: 'radial-gradient(circle, rgba(139,0,0,0.1) 0%, transparent 70%)' }} />
+              <div className="relative z-10">
+                <div className="flex items-center gap-8 mb-12">
+                  <div className="w-20 h-20 border border-accent/30 bg-accent/5 flex items-center justify-center">
+                    <PenTool className="text-accent" size={40} />
+                  </div>
+                  <div>
+                    <h3 className="text-4xl font-display font-black tracking-tight uppercase">Blood Inscription</h3>
+                    <p className="text-accent text-xs font-mono tracking-[0.4em] uppercase mt-2">Permanent_Mark</p>
+                  </div>
+                </div>
+                <p className="text-white/40 mb-12 leading-tight text-2xl font-serif italic">
+                  Users can offer a tithe to have their name or custom mark placed as blood graffiti in future revelations. As the congregation grows, the cost to leave a mark increases. Your legacy is <RedactedText>eternal</RedactedText>.
+                </p>
+                <div className="grid grid-cols-2 gap-8 mb-16">
+                  <div className="p-8 border border-white/5 bg-white/[0.02]">
+                    <span className="text-white/20 text-[11px] font-mono uppercase block mb-4 tracking-widest">Blood_Tithe</span>
+                    <span className="text-4xl font-display font-black text-white tracking-tighter">$1.00</span>
+                  </div>
+                  <div className="p-8 border border-white/5 bg-white/[0.02]">
+                    <span className="text-white/20 text-[11px] font-mono uppercase block mb-4 tracking-widest">Status</span>
+                    <span className="text-4xl font-display font-black text-accent tracking-tighter">OPEN</span>
+                  </div>
+                </div>
+                <button className="relative overflow-hidden w-full py-10 bg-accent text-black font-black tracking-[0.5em] uppercase text-xs hover:bg-white transition-all shadow-[0_0_50px_rgba(139,0,0,0.2)] group">
+                  <div className="absolute top-0 left-1/2 w-px h-full blood-drip opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                  <span className="relative z-10">INSCRIBE_YOUR_NAME</span>
+                </button>
+              </div>
+            </motion.div>
+
+            {/* Revenue & Donations */}
+            <motion.div 
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.5 }}
+              className="space-y-16"
+            >
+              <div className="p-16 border border-white/10 bg-black relative">
+                <div className="flex items-center gap-8 mb-12">
+                  <div className="w-16 h-16 border border-white/20 bg-white/5 flex items-center justify-center">
+                    <TrendingUp className="text-white/50" size={32} />
+                  </div>
+                  <h4 className="text-3xl font-display font-black tracking-tight uppercase">Tithe Allocation</h4>
+                </div>
+                <div className="space-y-12">
+                  <div>
+                    <div className="flex justify-between text-xs mb-6 font-mono uppercase tracking-[0.4em]">
+                      <span className="text-white/20">Offering Contribution</span>
+                      <span className="text-accent font-black">40%</span>
+                    </div>
+                    <div className="h-2 bg-white/5 overflow-hidden">
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        whileInView={{ width: "40%" }}
+                        transition={{ duration: 2, ease: "circOut" }}
+                        className="h-full bg-accent shadow-[0_0_20px_rgba(139,0,0,0.5)]" 
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex justify-between text-xs mb-6 font-mono uppercase tracking-[0.4em]">
+                      <span className="text-white/20">Infrastructure & Creator</span>
+                      <span className="text-white/40 font-black">60%</span>
+                    </div>
+                    <div className="h-2 bg-white/5 overflow-hidden">
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        whileInView={{ width: "60%" }}
+                        transition={{ duration: 2, ease: "circOut" }}
+                        className="h-full bg-white/20" 
+                      />
+                    </div>
+                  </div>
+                </div>
+                <p className="mt-12 text-sm text-white/20 leading-relaxed italic font-serif">
+                  "Every contribution fuels the mystery. Every tag builds the prize. The cycle <RedactedText>continues</RedactedText>."
+                </p>
+              </div>
+
+              <motion.div 
+                whileHover={{ x: 20 }}
+                className="p-12 border border-white/10 bg-black flex items-center justify-between group cursor-pointer hover:bg-accent/[0.05] transition-all duration-500"
+              >
+                <div className="flex items-center gap-8">
+                  <div className="w-16 h-16 border border-accent/20 bg-accent/5 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <DollarSign className="text-accent" size={32} />
+                  </div>
+                  <div>
+                    <h4 className="text-3xl font-display font-black tracking-tight uppercase">Direct Contribution</h4>
+                    <p className="text-white/20 text-lg font-serif italic">Increase the stakes immediately</p>
+                  </div>
+                </div>
+                <div className="w-16 h-16 border border-white/10 flex items-center justify-center group-hover:border-accent group-hover:text-accent transition-all">
+                  <ChevronDown className="-rotate-90" size={24} />
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust Section - The Covenant */}
+      <section className="py-80 relative border-t border-white/5">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-gradient-to-b from-accent/20 via-transparent to-transparent pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
+          <SectionHeading subtitle="The prophecy is built on a foundation of absolute, mathematical fairness.">
+            THE <br /> <GlitchText text="TESTAMENT" />
+          </SectionHeading>
+          <div className="grid md:grid-cols-3 gap-24 mt-32">
+            {[
+              { icon: ShieldCheck, title: "Immutable Ledger", desc: <>The USDC reliquary is public. Anyone can verify the balance and transaction history at any time on the blockchain. Transparency is <RedactedText>divine</RedactedText>.</> },
+              { icon: Lock, title: "Static Prophecy", desc: <>The final incantation is fixed from the start. We do not change it based on who is winning. The solution is already <RedactedText>written</RedactedText>.</> },
+              { icon: HelpCircle, title: "Logical Integrity", desc: <>Every revelation is solvable. We do not use false idols or impossible riddles. If it looks like a sign, it probably <RedactedText>is</RedactedText>.</> }
+            ].map((item, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.2, duration: 1 }}
+                className="space-y-10 group relative"
+              >
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 blood-drip opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                <div className="w-24 h-24 border border-accent/20 bg-accent/[0.02] flex items-center justify-center mx-auto mb-12 shadow-[0_0_60px_rgba(139,0,0,0.05)] group-hover:bg-accent/10 transition-all duration-700 relative z-10">
+                  <item.icon className="text-accent" size={48} />
+                </div>
+                <h3 className="text-4xl font-display font-black tracking-tight uppercase relative z-10">{item.title}</h3>
+                <div className="text-white/30 text-xl leading-tight font-serif italic max-w-sm mx-auto relative z-10">
+                  {item.desc}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* The Network Section */}
+      <section className="py-80 relative border-t border-white/5 overflow-hidden bg-black">
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black pointer-events-none" />
+        
+        {/* Blood Drips */}
+        <div className="absolute top-0 left-1/2 w-px h-96 blood-drip animate-[pulse_6s_ease-in-out_infinite]" />
+        
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="flex flex-col items-center text-center">
+            <SectionHeading number="04" subtitle="The truth is not a straight line. It is a web of interconnected anomalies.">
+              THE <br /> <GlitchText text="CONGREGATION" />
+            </SectionHeading>
+            <div className="grid md:grid-cols-2 gap-16 mt-24 text-left w-full">
+              <motion.div 
+                whileHover={{ scale: 1.02 }}
+                className="p-12 border border-white/10 bg-black/40 backdrop-blur-xl relative group overflow-hidden"
+              >
+                <div className="absolute top-0 left-1/2 w-px h-full blood-drip opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                <div className="absolute top-0 left-0 w-full h-1 bg-accent/20" />
+                <div className="absolute top-0 right-0 p-4 font-mono text-[10px] text-accent/40">CHOIR_01 // SERAPHIM</div>
+                <div className="relative z-10">
+                  <h4 className="text-4xl font-display font-black mb-8 uppercase tracking-tighter text-accent group-hover:glow-text transition-all">Omnipresent Signs</h4>
+                  <p className="text-white/40 text-2xl font-serif italic leading-tight mb-12">
+                    The mystery extends beyond YouTube. Check descriptions, source code of linked sites, and even metadata of shared files. Every byte could be a <RedactedText>revelation</RedactedText>.
+                  </p>
+                  <div className="flex items-center gap-4 opacity-20 group-hover:opacity-100 transition-opacity">
+                    <div className="w-2 h-2 rounded-full bg-accent animate-ping" />
+                    <span className="text-[10px] font-mono tracking-widest uppercase">Scanning_Scripture...</span>
+                  </div>
+                </div>
+              </motion.div>
+              <motion.div 
+                whileHover={{ scale: 1.02 }}
+                className="p-12 border border-white/10 bg-black/40 backdrop-blur-xl relative group overflow-hidden"
+              >
+                <div className="absolute top-0 left-1/2 w-px h-full blood-drip opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                <div className="absolute top-0 left-0 w-full h-1 bg-accent/20" />
+                <div className="absolute top-0 right-0 p-4 font-mono text-[10px] text-accent/40">CHOIR_02 // CHERUBIM</div>
+                <div className="relative z-10">
+                  <h4 className="text-4xl font-display font-black mb-8 uppercase tracking-tighter text-accent group-hover:glow-text transition-all">Collective Faith</h4>
+                  <p className="text-white/40 text-2xl font-serif italic leading-tight mb-12">
+                    No one person can solve this alone. Join the collective effort. Share your visions, debunk false prophets, and build the map together. The watchers are <RedactedText>listening</RedactedText>.
+                  </p>
+                  <div className="flex items-center gap-4 opacity-20 group-hover:opacity-100 transition-opacity">
+                    <div className="w-2 h-2 rounded-full bg-accent animate-ping" />
+                    <span className="text-[10px] font-mono tracking-widest uppercase">Syncing_Congregation...</span>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section - Intelligence Debriefing */}
+      <section id="faq" className="py-80 bg-black border-t border-white/5 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')] opacity-5 pointer-events-none" />
+        
+        {/* Blood Drips */}
+        <div className="absolute top-0 right-1/4 w-px h-64 blood-drip animate-[pulse_5s_ease-in-out_infinite]" />
+        
+        <div className="max-w-5xl mx-auto px-6 relative z-10">
+          <SectionHeading number="05" subtitle="Everything you need to know before you bear witness.">
+            APOCRYPHAL <br /> <GlitchText text="TEXTS" />
+          </SectionHeading>
+          <div className="mt-32 space-y-8">
+            <FAQItem 
+              question="Is the offering real?" 
+              answer={<>Yes. The offering is held in a public USDC wallet (0x71C765...d8976F). You can verify the balance on Etherscan or any other blockchain explorer. The chosen one will receive the private keys to the reliquary or a direct transfer upon speaking the correct incantation. This is <RedactedText>verified</RedactedText>.</>} 
+            />
+            <FAQItem 
+              question="Can anyone be chosen?" 
+              answer={<>Absolutely. There are no geographical or age restrictions. The first soul to solve the mystery and break the seals wins the entire balance. Collaboration is encouraged, but only one person can ultimately claim the offering. The judgment is <RedactedText>approaching</RedactedText>.</>} 
+            />
+            <FAQItem 
+              question="Are the signs fair?" 
+              answer={<>We strive for a balance between tribulation and fairness. While the trials become very difficult, they are all based on logic, pattern recognition, and observation. We do not use false idols or impossible riddles. The truth is <RedactedText>hidden in plain sight</RedactedText>.</>} 
+            />
+            <FAQItem 
+              question="Are the visions AI-generated?" 
+              answer={<>Yes, we use cutting-edge AI generation tools to create the atmospheric environments you witness. This allows us to create high-quality, immersive visuals. Any 'glitches' or inconsistencies are usually a byproduct of the tech, but we ensure all intended signs are clearly visible. The machine <RedactedText>prophesies</RedactedText>.</>} 
+            />
+            <FAQItem 
+              question="Can I bear witness for free?" 
+              answer={<>Yes! Watching the revelations and solving the trials is 100% free. The Blood Inscription and tithes are optional ways to support the project and increase the offering, but they are not required to be chosen. The descent is <RedactedText>open to all</RedactedText>.</>} 
+            />
+          </div>
+          
+          <div className="mt-40 p-12 border border-white/10 bg-white/[0.02] relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-1 h-full bg-accent" />
+            <div className="absolute top-0 right-12 w-px h-32 blood-drip animate-[pulse_4s_ease-in-out_infinite]" />
+            <div className="flex items-start gap-8 relative z-10">
+              <div className="p-4 bg-accent/10 text-accent">
+                <Shield size={24} />
+              </div>
+              <div>
+                <h4 className="text-2xl font-display font-black uppercase tracking-tighter mb-4">Divine_Judgment</h4>
+                <p className="text-white/30 font-serif italic leading-relaxed">
+                  All signs are generated and verified by the core system. Any attempt to manipulate the congregation or bypass the covenant will result in immediate <RedactedText>damnation</RedactedText>. The seals must be broken, not forced.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-48 border-t border-white/5 relative overflow-hidden bg-black">
+        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-20" />
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col lg:flex-row justify-between items-start gap-32">
+            <div className="flex flex-col items-start gap-12">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(139,0,0,0.4)] overflow-hidden border border-accent/30">
+                  <img src="https://yt3.googleusercontent.com/aK1Hohp42hmjzy2ok3SgHD5wHXlw-dU4KnPRLsViWLfsi8iMkqPtMqGbVfARImmeuLpXDa_gxg=s160-c-k-c0x00ffffff-no-rj" alt="Seventh Seed Eye Logo" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                </div>
+                <span className="font-display font-black text-4xl tracking-tighter uppercase">SEVENTH SEED</span>
+              </div>
+              <p className="text-white/20 text-2xl max-w-md font-serif italic leading-tight">
+                "The watchers descend from the heavens. The seals are breaking in the dark. End of <RedactedText>revelation</RedactedText>."
+              </p>
+              <div className="flex gap-8">
+                <a href="https://youtube.com/@VIISeed" target="_blank" rel="noopener noreferrer" aria-label="Visit our YouTube channel" className="w-12 h-12 border border-white/10 flex items-center justify-center hover:border-accent hover:text-accent transition-all">
+                  <Youtube size={20} />
+                </a>
+                <a href="#" aria-label="Search the archives" className="w-12 h-12 border border-white/10 flex items-center justify-center hover:border-accent hover:text-accent transition-all">
+                  <Search size={20} />
+                </a>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-24">
+              <div className="space-y-8">
+                <h5 className="text-[11px] font-mono tracking-[0.5em] uppercase text-white/40 font-bold">Scripture</h5>
+                <ul className="space-y-6 text-sm font-mono tracking-widest uppercase">
+                  <li><a href="#about" className="text-white/30 hover:text-accent transition-colors">The_Genesis</a></li>
+                  <li><a href="#how-it-works" className="text-white/30 hover:text-accent transition-colors">The_Covenant</a></li>
+                  <li><a href="#reward" className="text-white/30 hover:text-accent transition-colors">The_Offering</a></li>
+                </ul>
+              </div>
+              <div className="space-y-8">
+                <h5 className="text-[11px] font-mono tracking-[0.5em] uppercase text-white/40 font-bold">Apocrypha</h5>
+                <ul className="space-y-6 text-sm font-mono tracking-widest uppercase">
+                  <li><a href="#faq" className="text-white/30 hover:text-accent transition-colors">Texts</a></li>
+                  <li><a href="#" className="text-white/30 hover:text-accent transition-colors">Relics</a></li>
+                  <li><a href="#" className="text-white/30 hover:text-accent transition-colors">Tabernacle</a></li>
+                </ul>
+              </div>
+              <div className="space-y-8 col-span-2 md:col-span-1">
+                <h5 className="text-[11px] font-mono tracking-[0.5em] uppercase text-white/40 font-bold">Commandments</h5>
+                <ul className="space-y-6 text-sm font-mono tracking-widest uppercase">
+                  <li><a href="#" className="text-white/30 hover:text-accent transition-colors">Privacy_Lvl_0</a></li>
+                  <li><a href="#" className="text-white/30 hover:text-accent transition-colors">Terms_of_Faith</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="mt-48 pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-12 text-[11px] font-mono uppercase tracking-[0.6em] text-white/10">
+            <p>© 2026 SEVENTH SEED PROJECT. ALL RIGHTS RESERVED.</p>
+            <p className="flex items-center gap-4">
+              <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
+              LOCATION: UNKNOWN_SECTOR_7
+            </p>
+          </div>
+        </div>
+      </footer>
+    </main>
+  );
+}
