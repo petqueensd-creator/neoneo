@@ -143,7 +143,7 @@ const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
         <div className="flex justify-between items-end mb-4">
           <div className="space-y-1">
             <div className="text-accent text-[10px] tracking-[0.3em] animate-pulse">{status}</div>
-            <div className="text-white/20 text-[9px] tracking-widest">LOCATION: PURGATORY_LEVEL_7</div>
+            <div className="text-white/80 text-[9px] tracking-widest">LOCATION: PURGATORY_LEVEL_7</div>
           </div>
           <div className="text-accent text-xl sm:text-2xl font-black">{progress}%</div>
         </div>
@@ -198,7 +198,7 @@ const Terminal = ({ lines }: { lines: string[] }) => {
     return () => clearInterval(interval);
   }, [currentLine, lines]);
   return (
-    <div className="font-mono text-[10px] text-accent/60 bg-accent/[0.02] p-4 sm:p-6 border border-accent/10 rounded backdrop-blur-sm relative overflow-hidden">
+    <div className="font-mono text-[10px] text-accent bg-accent/[0.02] p-4 sm:p-6 border border-accent/10 rounded backdrop-blur-sm relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-px bg-accent/20" />
       <div className="flex items-center gap-3 mb-4 opacity-40">
         <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
@@ -238,7 +238,7 @@ const Navbar = () => {
             <span className="font-display font-bold text-base sm:text-xl tracking-tighter leading-none">SEVENTH SEED</span>
             <div className="flex items-center gap-2 mt-0.5">
               <div className="flex gap-0.5">{[1,2,3,4,5].map(i => <div key={i} className={`w-0.5 h-1.5 ${i <= signal ? 'bg-accent' : 'bg-white/10'}`} />)}</div>
-              <span className="text-[7px] font-mono text-accent/60 uppercase tracking-widest">Faith_Level</span>
+              <span className="text-[7px] font-mono text-accent uppercase tracking-widest">Faith_Level</span>
             </div>
           </div>
         </div>
@@ -298,7 +298,7 @@ const SectionHeading = ({ children, subtitle, number }: { children: React.ReactN
     </motion.div>
     {subtitle && (
       <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.3, duration: 1 }}
-        className="text-white/40 max-w-2xl text-base sm:text-xl md:text-2xl font-serif italic leading-tight tracking-tight border-l-2 border-accent/10 pl-5 sm:pl-8 mt-5 sm:mt-8">
+        className="text-white/70 max-w-2xl text-base sm:text-xl md:text-2xl font-serif italic leading-tight tracking-tight border-l-2 border-accent/10 pl-5 sm:pl-8 mt-5 sm:mt-8">
         {subtitle}
       </motion.p>
     )}
@@ -318,7 +318,7 @@ const FAQItem = ({ question, answer }: { question: string, answer: React.ReactNo
     <div className="border-b border-white/5 py-7 sm:py-10">
       <button onClick={() => setIsOpen(!isOpen)} className="w-full flex justify-between items-center text-left gap-4 group">
         <span className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black tracking-tighter uppercase leading-none group-hover:text-accent transition-colors">{question}</span>
-        <div className={`w-9 h-9 sm:w-12 sm:h-12 border border-white/10 flex items-center justify-center flex-shrink-0 transition-all duration-500 ${isOpen ? 'rotate-180 border-accent text-accent bg-accent/5' : 'text-white/30'}`}>
+        <div className={`w-9 h-9 sm:w-12 sm:h-12 border border-white/10 flex items-center justify-center flex-shrink-0 transition-all duration-500 ${isOpen ? 'rotate-180 border-accent text-accent bg-accent/5' : 'text-white/60'}`}>
           <ChevronDown size={18} />
         </div>
       </button>
@@ -454,7 +454,7 @@ export default function App() {
               {[{label:'VERSE_A', title:'RAW TESTIMONY', desc:'UNFILTERED POV FROM THE DAMNED.'},{label:'VERSE_B', title:'AI REVELATION', desc:'NEURAL NETWORK ENVIRONMENTS.'}].map((v,i) => (
                 <div key={i} className="aspect-square border border-white/5 flex flex-col justify-center p-4 sm:p-8 bg-white/[0.02] hover:bg-accent/[0.05] transition-colors duration-500">
                   <span className="text-[10px] font-mono text-accent mb-3 tracking-widest">{v.label}</span>
-                  <h4 className="text-xl sm:text-3xl font-display font-black leading-none mb-3 uppercase tracking-tighter">{v.title}</h4>
+                  <h3 className="text-xl sm:text-3xl font-display font-black leading-none mb-3 uppercase tracking-tighter">{v.title}</h3>
                   <p className="text-[9px] sm:text-xs text-white/20 font-mono leading-relaxed uppercase tracking-widest">{v.desc}</p>
                 </div>
               ))}
@@ -682,7 +682,7 @@ export default function App() {
                 <motion.div key={i} whileHover={{ scale: 1.01 }}
                   className="p-7 sm:p-12 border border-white/10 bg-black/40 backdrop-blur-xl relative group overflow-hidden">
                   <div className="absolute top-0 left-0 w-full h-1 bg-accent/20" />
-                  <div className="absolute top-0 right-0 p-3 font-mono text-[9px] text-accent/40">{c.label}</div>
+                  <div className="absolute top-0 right-0 p-3 font-mono text-[9px] text-accent">{c.label}</div>
                   <div className="relative z-10 mt-3">
                     <h4 className="text-2xl sm:text-3xl lg:text-4xl font-display font-black mb-4 sm:mb-7 uppercase tracking-tighter text-accent">{c.title}</h4>
                     <p className="text-white/40 text-base sm:text-xl font-serif italic leading-tight mb-7 sm:mb-10">{c.desc}</p>
@@ -742,10 +742,10 @@ export default function App() {
                 "The watchers descend from the heavens. The seals are breaking in the dark. End of <RedactedText>revelation</RedactedText>."
               </p>
               <div className="flex gap-4">
-                <a href="https://youtube.com/@VIISeed" target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-12 sm:h-12 border border-white/10 flex items-center justify-center hover:border-accent hover:text-accent transition-all">
+                <a href="https://youtube.com/@VIISeed" target="_blank" rel="noopener noreferrer" aria-label="Visit our YouTube channel" className="w-9 h-9 sm:w-12 sm:h-12 border border-white/10 flex items-center justify-center hover:border-accent hover:text-accent transition-all">
                   <Youtube size={16} />
                 </a>
-                <a href="#" className="w-9 h-9 sm:w-12 sm:h-12 border border-white/10 flex items-center justify-center hover:border-accent hover:text-accent transition-all">
+                <a href="#" aria-label="Search" className="w-9 h-9 sm:w-12 sm:h-12 border border-white/10 flex items-center justify-center hover:border-accent hover:text-accent transition-all">
                   <Search size={16} />
                 </a>
               </div>
@@ -755,7 +755,7 @@ export default function App() {
                 {title:"Apocrypha",links:[{href:"#faq",label:"Texts"},{href:"#",label:"Relics"},{href:"#",label:"Tabernacle"}]},
                 {title:"Commandments",links:[{href:"#",label:"Privacy_Lvl_0"},{href:"#",label:"Terms_of_Faith"}]}].map(col => (
                 <div key={col.title} className="space-y-4 sm:space-y-6">
-                  <h5 className="text-[10px] font-mono tracking-[0.4em] uppercase text-white/40 font-bold">{col.title}</h5>
+                  <h3 className="text-[10px] font-mono tracking-[0.4em] uppercase text-white/40 font-bold">{col.title}</h3>
                   <ul className="space-y-3 sm:space-y-5 text-xs font-mono tracking-widest uppercase">
                     {col.links.map(l => <li key={l.label}><a href={l.href} className="text-white/30 hover:text-accent transition-colors">{l.label}</a></li>)}
                   </ul>
