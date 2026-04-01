@@ -504,7 +504,7 @@ const SectionHeading = ({ children, subtitle, number }: { children: React.ReactN
       transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
       className="relative w-full"
     >
-      <h2 className="text-3xl sm:text-6xl md:text-9xl font-display font-black mb-6 md:mb-8 tracking-tighter uppercase leading-[0.9] md:leading-[0.8] glow-text break-words overflow-wrap-anywhere px-4">
+      <h2 className="text-3xl sm:text-5xl md:text-7xl lg:text-9xl font-display font-black mb-6 md:mb-8 tracking-tighter uppercase leading-[0.9] md:leading-[0.8] glow-text px-4">
         {children}
       </h2>
       <div className="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-accent/30 hidden sm:block" />
@@ -515,7 +515,7 @@ const SectionHeading = ({ children, subtitle, number }: { children: React.ReactN
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.3, duration: 1 }}
-        className="text-white/40 max-w-2xl text-lg md:text-2xl font-serif italic leading-tight tracking-tight border-l-2 sm:border-l-0 sm:border-t-2 border-accent/10 pl-6 sm:pl-0 sm:pt-6 mt-6 md:mt-8"
+        className="text-white/40 max-w-2xl text-base sm:text-lg md:text-2xl font-serif italic leading-tight tracking-tight border-l-2 sm:border-l-0 sm:border-t-2 border-accent/10 pl-6 sm:pl-0 sm:pt-6 mt-6 md:mt-8"
       >
         {subtitle}
       </motion.p>
@@ -593,10 +593,10 @@ export default function App() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-12 right-12 z-[60] group flex items-center gap-4 bg-black/80 backdrop-blur-md border border-white/10 p-4 hover:border-accent transition-all duration-500"
+        className="fixed bottom-4 right-4 md:bottom-12 md:right-12 z-[60] group flex items-center gap-2 md:gap-4 bg-black/80 backdrop-blur-md border border-white/10 p-3 md:p-4 hover:border-accent transition-all duration-500"
       >
-        <span className="text-[10px] font-mono tracking-[0.4em] text-white/30 group-hover:text-accent uppercase">Return_to_Surface</span>
-        <div className="w-10 h-10 border border-white/10 flex items-center justify-center group-hover:border-accent group-hover:text-accent transition-all rotate-180">
+        <span className="hidden md:inline-block text-[10px] font-mono tracking-[0.4em] text-white/30 group-hover:text-accent uppercase">Return_to_Surface</span>
+        <div className="w-8 h-8 md:w-10 md:h-10 border border-white/10 flex items-center justify-center group-hover:border-accent group-hover:text-accent transition-all rotate-180">
           <ChevronDown size={18} />
         </div>
       </motion.button>
@@ -662,11 +662,11 @@ export default function App() {
               <div className="h-px w-16 bg-accent/30" />
             </motion.div>
 
-            <div className="relative inline-block mb-12 w-full max-w-full overflow-hidden px-4">
-              <h1 className="text-4xl sm:text-6xl md:text-9xl lg:text-[13rem] font-display font-black leading-[0.9] md:leading-[0.75] tracking-tighter uppercase italic glow-text animate-flicker break-words overflow-wrap-anywhere text-center">
-                <GlitchText text="THE SEVENTH" /> <br />
+            <div className="relative inline-block mb-12 w-full max-w-full overflow-hidden px-2 sm:px-4">
+              <h1 className="text-5xl sm:text-7xl md:text-9xl lg:text-[13rem] font-display font-black leading-[0.9] md:leading-[0.75] tracking-tighter uppercase italic glow-text animate-flicker text-center w-full">
+                <GlitchText text="THE SEVENTH" className="max-w-full" /> <br />
                 <span className="text-accent not-italic">SEED</span> <br />
-                <span className="text-white/10">HAS TAKEN ROOT.</span>
+                <span className="text-white/10 text-2xl sm:text-4xl md:text-6xl lg:text-8xl block mt-2 md:mt-4">HAS TAKEN ROOT.</span>
               </h1>
               <div className="absolute -top-12 -right-12 w-32 h-32 border-t border-r border-accent/20 hidden lg:block" />
               <div className="absolute -bottom-12 -left-12 w-32 h-32 border-b border-l border-accent/20 hidden lg:block" />
@@ -676,7 +676,7 @@ export default function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 2, duration: 2.5 }}
-              className="text-white/30 text-lg md:text-4xl max-w-4xl mx-auto mb-12 md:mb-20 font-serif italic leading-tight md:leading-[1.1] tracking-tight"
+              className="text-white/30 text-base sm:text-lg md:text-4xl max-w-4xl mx-auto mb-12 md:mb-20 font-serif italic leading-tight md:leading-[1.1] tracking-tight px-4 sm:px-0"
             >
               "They buried the truth for a reason. The offering waits in the dark, and the first to decipher the scripture claims the harvest."
             </motion.p>
@@ -786,12 +786,12 @@ export default function App() {
               </motion.div>
               <div className="border border-white/5 flex flex-col justify-center p-8 md:p-10 bg-white/[0.02] hover:bg-accent/[0.05] transition-colors duration-500 min-h-[180px] md:min-h-[200px]">
                 <span className="text-[10px] font-mono text-accent mb-4 md:mb-6 tracking-widest">VERSE_A</span>
-                <h4 className="text-2xl sm:text-4xl font-display font-black leading-tight mb-4 md:mb-6 uppercase tracking-tighter">RAW <br /> TESTIMONY</h4>
+                <h4 className="text-xl sm:text-2xl md:text-4xl font-display font-black leading-tight mb-4 md:mb-6 uppercase tracking-tighter">RAW <br /> TESTIMONY</h4>
                 <p className="text-[10px] text-white/20 font-mono leading-relaxed uppercase tracking-widest">UNFILTERED POV PERSPECTIVE FROM THE DAMNED.</p>
               </div>
               <div className="border border-white/5 flex flex-col justify-center p-8 md:p-10 bg-white/[0.02] hover:bg-accent/[0.05] transition-colors duration-500 min-h-[180px] md:min-h-[200px]">
                 <span className="text-[10px] font-mono text-accent mb-4 md:mb-6 tracking-widest">VERSE_B</span>
-                <h4 className="text-2xl sm:text-4xl font-display font-black leading-tight mb-4 md:mb-6 uppercase tracking-tighter">AI <br /> REVELATION</h4>
+                <h4 className="text-xl sm:text-2xl md:text-4xl font-display font-black leading-tight mb-4 md:mb-6 uppercase tracking-tighter">AI <br /> REVELATION</h4>
                 <p className="text-[10px] text-white/20 font-mono leading-relaxed uppercase tracking-widest">ENVIRONMENTAL GENERATION VIA NEURAL NETWORKS.</p>
               </div>
             </div>
@@ -841,8 +841,8 @@ export default function App() {
                   {item.icon}
                 </div>
                 <span className="text-accent font-mono text-[10px] mb-12 block tracking-[0.4em] uppercase relative z-10">Seal_0{i+1} // Broken</span>
-                <h3 className="text-3xl md:text-5xl font-display font-black mb-6 md:mb-10 tracking-tighter uppercase leading-none group-hover:text-accent transition-colors group-hover:glow-text relative z-10">{item.title}</h3>
-                <p className="text-lg md:text-2xl text-white/30 leading-tight md:leading-[1.1] font-serif italic relative z-10">{item.desc}</p>
+                <h3 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-display font-black mb-6 md:mb-10 tracking-tighter uppercase leading-none group-hover:text-accent transition-colors group-hover:glow-text relative z-10 break-words">{item.title}</h3>
+                <p className="text-base sm:text-lg md:text-2xl text-white/30 leading-tight md:leading-[1.1] font-serif italic relative z-10">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -868,21 +868,21 @@ export default function App() {
             <div className="grid md:grid-cols-2 gap-8 md:gap-12 text-left mt-16 md:mt-24">
               <div className="p-8 md:p-12 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-500 relative group">
                 <div className="absolute top-0 left-0 w-1 h-full bg-accent scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-500" />
-                <h4 className="text-2xl md:text-3xl font-display font-black mb-6 flex items-center gap-4 uppercase tracking-tighter">
+                <h4 className="text-xl sm:text-2xl md:text-3xl font-display font-black mb-6 flex items-center gap-4 uppercase tracking-tighter">
                   <div className="w-3 h-3 rounded-full bg-accent" />
                   The Sealed Reliquary
                 </h4>
-                <p className="text-white/30 text-lg md:text-xl font-serif italic leading-tight">
+                <p className="text-white/30 text-base sm:text-lg md:text-xl font-serif italic leading-tight">
                   There is a digital reliquary containing the final offering. It is protected by a complex, multi-layered incantation that can only be constructed by witnessing every revelation.
                 </p>
               </div>
               <div className="p-8 md:p-12 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-500 relative group">
                 <div className="absolute top-0 left-0 w-1 h-full bg-accent scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-500" />
-                <h4 className="text-2xl md:text-3xl font-display font-black mb-6 flex items-center gap-4 uppercase tracking-tighter">
+                <h4 className="text-xl sm:text-2xl md:text-3xl font-display font-black mb-6 flex items-center gap-4 uppercase tracking-tighter">
                   <div className="w-3 h-3 rounded-full bg-accent" />
                   The Chosen One
                 </h4>
-                <p className="text-white/30 text-lg md:text-xl font-serif italic leading-tight">
+                <p className="text-white/30 text-base sm:text-lg md:text-xl font-serif italic leading-tight">
                   Only one soul can be the first to break the seals. The moment the incantation is spoken and the offering is claimed, the prophecy is fulfilled.
                 </p>
               </div>
@@ -904,15 +904,15 @@ export default function App() {
                 <div className="flex gap-6 md:gap-10 group">
                   <span className="font-mono text-accent text-sm mt-2">01</span>
                   <div className="p-6 md:p-8 border-l border-white/10 group-hover:border-accent transition-colors">
-                    <h4 className="text-2xl sm:text-4xl font-display font-black tracking-tight uppercase mb-6 break-words">USDC_RELIQUARY</h4>
-                    <p className="text-white/30 text-xl md:text-2xl font-serif italic leading-tight">The offering is held in a public USDC wallet, ensuring stability and instant global accessibility. No false prophets. No <RedactedText>delays</RedactedText>.</p>
+                    <h4 className="text-xl sm:text-2xl md:text-4xl font-display font-black tracking-tight uppercase mb-6 break-words">USDC_RELIQUARY</h4>
+                    <p className="text-white/30 text-lg sm:text-xl md:text-2xl font-serif italic leading-tight">The offering is held in a public USDC wallet, ensuring stability and instant global accessibility. No false prophets. No <RedactedText>delays</RedactedText>.</p>
                   </div>
                 </div>
                 <div className="flex gap-6 md:gap-10 group">
                   <span className="font-mono text-accent text-sm mt-2">02</span>
                   <div className="p-6 md:p-8 border-l border-white/10 group-hover:border-accent transition-colors">
-                    <h4 className="text-2xl sm:text-4xl font-display font-black tracking-tight uppercase mb-6 break-words">COMPOUNDING_TITHE</h4>
-                    <p className="text-white/30 text-xl md:text-2xl font-serif italic leading-tight">The offering grows with every interaction, donation, and revelation. The stakes only go <RedactedText>up</RedactedText>.</p>
+                    <h4 className="text-xl sm:text-2xl md:text-4xl font-display font-black tracking-tight uppercase mb-6 break-words">COMPOUNDING_TITHE</h4>
+                    <p className="text-white/30 text-lg sm:text-xl md:text-2xl font-serif italic leading-tight">The offering grows with every interaction, donation, and revelation. The stakes only go <RedactedText>up</RedactedText>.</p>
                   </div>
                 </div>
               </div>
@@ -933,7 +933,7 @@ export default function App() {
               <div className="bg-black/60 p-12 text-center border border-white/5 relative overflow-hidden">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(139,0,0,0.05)_0%,transparent_70%)]" />
                 <span className="text-accent font-mono text-[10px] tracking-[0.6em] uppercase mb-8 block relative z-10">Current_Offering_Verified</span>
-                <div className="text-4xl sm:text-7xl md:text-9xl font-display font-black text-white tracking-tighter mb-8 md:mb-12 leading-none relative z-10 glow-text">
+                <div className="text-3xl sm:text-5xl md:text-9xl font-display font-black text-white tracking-tighter mb-8 md:mb-12 leading-none relative z-10 glow-text">
                   $12,450
                 </div>
                 <div className="flex items-center justify-center gap-4 mb-12 relative z-10">
@@ -983,11 +983,11 @@ export default function App() {
                     <PenTool className="text-accent" size={32} />
                   </div>
                   <div>
-                    <h3 className="text-2xl sm:text-4xl font-display font-black tracking-tight uppercase">Blood Inscription</h3>
+                    <h3 className="text-xl sm:text-2xl md:text-4xl font-display font-black tracking-tight uppercase">Blood Inscription</h3>
                     <p className="text-accent text-[10px] font-mono tracking-[0.4em] uppercase mt-2">Permanent_Mark</p>
                   </div>
                 </div>
-                <p className="text-white/40 mb-8 md:mb-12 leading-tight text-xl md:text-2xl font-serif italic">
+                <p className="text-white/40 mb-8 md:mb-12 leading-tight text-lg sm:text-xl md:text-2xl font-serif italic">
                   Users can offer a tithe to have their name or custom mark placed as blood graffiti in future revelations. As the congregation grows, the cost to leave a mark increases. Your legacy is <RedactedText>eternal</RedactedText>.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 mb-16">
@@ -1020,7 +1020,7 @@ export default function App() {
                   <div className="w-12 h-12 md:w-16 md:h-16 border border-white/20 bg-white/5 flex items-center justify-center shrink-0">
                     <TrendingUp className="text-white/50" size={24} />
                   </div>
-                  <h4 className="text-2xl md:text-3xl font-display font-black tracking-tight uppercase">Tithe Allocation</h4>
+                  <h4 className="text-xl sm:text-2xl md:text-3xl font-display font-black tracking-tight uppercase">Tithe Allocation</h4>
                 </div>
                 <div className="space-y-12">
                   <div>
@@ -1066,7 +1066,7 @@ export default function App() {
                     <DollarSign className="text-accent" size={24} />
                   </div>
                   <div>
-                    <h4 className="text-xl md:text-3xl font-display font-black tracking-tight uppercase">Direct Contribution</h4>
+                    <h4 className="text-lg sm:text-xl md:text-3xl font-display font-black tracking-tight uppercase">Direct Contribution</h4>
                     <p className="text-white/20 text-sm md:text-lg font-serif italic">Increase the stakes immediately</p>
                   </div>
                 </div>
@@ -1104,8 +1104,8 @@ export default function App() {
                 <div className="w-24 h-24 border border-accent/20 bg-accent/[0.02] flex items-center justify-center mx-auto mb-12 shadow-[0_0_60px_rgba(139,0,0,0.05)] group-hover:bg-accent/10 transition-all duration-700 relative z-10">
                   <item.icon className="text-accent" size={48} />
                 </div>
-                <h3 className="text-4xl font-display font-black tracking-tight uppercase relative z-10">{item.title}</h3>
-                <div className="text-white/30 text-xl leading-tight font-serif italic max-w-sm mx-auto relative z-10">
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-display font-black tracking-tight uppercase relative z-10">{item.title}</h3>
+                <div className="text-white/30 text-base sm:text-lg md:text-xl leading-tight font-serif italic max-w-sm mx-auto relative z-10">
                   {item.desc}
                 </div>
               </motion.div>
@@ -1135,8 +1135,8 @@ export default function App() {
                 <div className="absolute top-0 left-0 w-full h-1 bg-accent/20" />
                 <div className="absolute top-0 right-0 p-4 font-mono text-[10px] text-accent/40">CHOIR_01 // SERAPHIM</div>
                 <div className="relative z-10">
-                  <h4 className="text-3xl md:text-4xl font-display font-black mb-6 md:mb-8 uppercase tracking-tighter text-accent group-hover:glow-text transition-all">Omnipresent Signs</h4>
-                  <p className="text-white/40 text-xl md:text-2xl font-serif italic leading-tight mb-8 md:mb-12">
+                  <h4 className="text-2xl sm:text-3xl md:text-4xl font-display font-black mb-6 md:mb-8 uppercase tracking-tighter text-accent group-hover:glow-text transition-all">Omnipresent Signs</h4>
+                  <p className="text-white/40 text-lg sm:text-xl md:text-2xl font-serif italic leading-tight mb-8 md:mb-12">
                     The mystery extends beyond YouTube. Check descriptions, source code of linked sites, and even metadata of shared files. Every byte could be a <RedactedText>revelation</RedactedText>.
                   </p>
                   <div className="flex items-center gap-4 opacity-20 group-hover:opacity-100 transition-opacity">
@@ -1153,8 +1153,8 @@ export default function App() {
                 <div className="absolute top-0 left-0 w-full h-1 bg-accent/20" />
                 <div className="absolute top-0 right-0 p-4 font-mono text-[10px] text-accent/40">CHOIR_02 // CHERUBIM</div>
                 <div className="relative z-10">
-                  <h4 className="text-3xl md:text-4xl font-display font-black mb-6 md:mb-8 uppercase tracking-tighter text-accent group-hover:glow-text transition-all">Collective Faith</h4>
-                  <p className="text-white/40 text-xl md:text-2xl font-serif italic leading-tight mb-8 md:mb-12">
+                  <h4 className="text-2xl sm:text-3xl md:text-4xl font-display font-black mb-6 md:mb-8 uppercase tracking-tighter text-accent group-hover:glow-text transition-all">Collective Faith</h4>
+                  <p className="text-white/40 text-lg sm:text-xl md:text-2xl font-serif italic leading-tight mb-8 md:mb-12">
                     No one person can solve this alone. Join the collective effort. Share your visions, debunk false prophets, and build the map together. The watchers are <RedactedText>listening</RedactedText>.
                   </p>
                   <div className="flex items-center gap-4 opacity-20 group-hover:opacity-100 transition-opacity">
@@ -1210,7 +1210,7 @@ export default function App() {
                 <Shield size={24} />
               </div>
               <div>
-                <h4 className="text-xl md:text-2xl font-display font-black uppercase tracking-tighter mb-4">Divine_Judgment</h4>
+                <h4 className="text-lg sm:text-xl md:text-2xl font-display font-black uppercase tracking-tighter mb-4">Divine_Judgment</h4>
                 <p className="text-white/30 text-sm md:text-base font-serif italic leading-relaxed">
                   All signs are generated and verified by the core system. Any attempt to manipulate the congregation or bypass the covenant will result in immediate <RedactedText>damnation</RedactedText>. The seals must be broken, not forced.
                 </p>
@@ -1232,7 +1232,7 @@ export default function App() {
                 </div>
                 <span className="font-display font-black text-2xl md:text-4xl tracking-tighter uppercase">SEVENTH SEED</span>
               </div>
-              <p className="text-white/20 text-lg md:text-2xl max-w-md font-serif italic leading-tight">
+              <p className="text-white/20 text-base sm:text-lg md:text-2xl max-w-md font-serif italic leading-tight">
                 "The watchers descend from the heavens. The seals are breaking in the dark. End of <RedactedText>revelation</RedactedText>."
               </p>
               <div className="flex gap-6 md:gap-8">
