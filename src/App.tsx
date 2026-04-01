@@ -30,7 +30,7 @@ import {
 const StaticTunnelBackground = () => (
   <div className="absolute inset-0 z-0 overflow-hidden">
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(139,0,0,0.15)_0%,transparent_70%)]" />
-    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-[0.1] grayscale mix-blend-overlay" />
+    <div className="absolute inset-0 bg-[url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh_JVGhcgOQJ4ElQP9kBu2zVCDP3lfx1xAv3b5h3wgOf42Z2SOlq8Xfwg4HLL56rkcvKL3kefc7AR5MEP5Ag_y5LIK5o4rvZy6xPb2J4atw-d59gYpsAgk9MZD99kEO-khtDQSrSRSQMUceaQJRcI_BVvizjk-9TsOHrJcp1-QHJR9gNjEwBqacmYa07E8/s1000/logo.webp')] bg-cover bg-center opacity-[0.1] grayscale mix-blend-overlay" />
     <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
   </div>
 );
@@ -442,7 +442,7 @@ export default function App() {
             <div className="lg:col-span-6 grid grid-cols-2 gap-4 sm:gap-6">
               <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.5 }}
                 className="col-span-2 relative aspect-video overflow-hidden border border-white/10 grayscale hover:grayscale-0 transition-all duration-1000 group">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYrbl4nNsBeZuRrzb5Bc42Z0wGXLMHUGZWWj4U5giPy83ECyektI1BMh8wEV7KcN92erR_fk0aZN9cmqwtOE203ENJd01WdED8VWpCmo3qW68v_kOX3tnuMLD2-1Vj9JSbGh0xKI3gHu9ep0YCCMMD9LWc47qEut77g28CvhZZmAsCBwtf3bzQQfPrxqk/s1376/imagen2.webp" alt="Dark tunnel"
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjc8FSjgy0bwD2DKh1swplgWBjkjM0qW6MoGtTuo0Iw6hBGt5rWVTlPqiJFyhBNvif1D7N-BNFb0lTQdARQrODJPIxJPCZ7wLqwjE6mWkcg5OALYZVaa5IdvjUdjj9RhU3OJka564o0LZdZmJRZatxrtk2mFrRp7mqrOKuPWCK-uZbmQJsnKrYidY4HrSY/s890/Untitled-1.webp" alt="Dark tunnel"
                   className="w-full h-full object-cover opacity-30 group-hover:opacity-100 transition-all duration-1000 scale-110 group-hover:scale-100" referrerPolicy="no-referrer" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60" />
                 <div className="absolute top-3 sm:top-8 left-3 sm:left-8 flex items-center gap-2 sm:gap-4">
