@@ -503,9 +503,9 @@ export default function App() {
                 {title:"The Chosen One", desc:"Only one soul can be the first to break the seals. The moment the incantation is spoken and the offering is claimed, the prophecy is fulfilled."}].map((c,i) => (
                 <div key={i} className="p-7 sm:p-12 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-500 relative group">
                   <div className="absolute top-0 left-0 w-1 h-full bg-accent scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-500" />
-                  <h4 className="text-xl sm:text-3xl font-display font-black mb-4 sm:mb-6 flex items-center gap-3 uppercase tracking-tighter">
+                  <h3 className="text-xl sm:text-3xl font-display font-black mb-4 sm:mb-6 flex items-center gap-3 uppercase tracking-tighter">
                     <div className="w-2.5 h-2.5 rounded-full bg-accent flex-shrink-0" />{c.title}
-                  </h4>
+                  </h3>
                   <p className="text-white/30 text-sm sm:text-lg font-serif italic leading-tight">{c.desc}</p>
                 </div>
               ))}
@@ -528,7 +528,7 @@ export default function App() {
                   <div key={item.n} className="flex gap-5 sm:gap-10 group">
                     <span className="font-mono text-accent text-sm mt-1 flex-shrink-0">{item.n}</span>
                     <div className="p-5 sm:p-8 border-l border-white/10 group-hover:border-accent transition-colors">
-                      <h4 className="text-xl sm:text-3xl font-display font-black tracking-tight uppercase mb-3 sm:mb-5">{item.title}</h4>
+                      <h3 className="text-xl sm:text-3xl font-display font-black tracking-tight uppercase mb-3 sm:mb-5">{item.title}</h3>
                       <p className="text-white/30 text-base sm:text-xl font-serif italic leading-tight">{item.desc}</p>
                     </div>
                   </div>
@@ -608,7 +608,7 @@ export default function App() {
                   <div className="w-10 h-10 sm:w-14 sm:h-14 border border-white/20 bg-white/5 flex items-center justify-center flex-shrink-0">
                     <TrendingUp className="text-white/50" size={20} />
                   </div>
-                  <h4 className="text-xl sm:text-2xl font-display font-black tracking-tight uppercase">Tithe Allocation</h4>
+                  <h3 className="text-xl sm:text-2xl font-display font-black tracking-tight uppercase">Tithe Allocation</h3>
                 </div>
                 <div className="space-y-7 sm:space-y-10">
                   {[{label:"Offering Contribution",pct:"40%",w:"40%",color:"bg-accent shadow-[0_0_20px_rgba(139,0,0,0.5)]"},
@@ -633,7 +633,7 @@ export default function App() {
                     <DollarSign className="text-accent" size={20} />
                   </div>
                   <div>
-                    <h4 className="text-lg sm:text-2xl font-display font-black tracking-tight uppercase">Direct Contribution</h4>
+                    <h3 className="text-lg sm:text-2xl font-display font-black tracking-tight uppercase">Direct Contribution</h3>
                     <p className="text-white/20 text-sm font-serif italic">Increase the stakes immediately</p>
                   </div>
                 </div>
@@ -684,7 +684,7 @@ export default function App() {
                   <div className="absolute top-0 left-0 w-full h-1 bg-accent/20" />
                   <div className="absolute top-0 right-0 p-3 font-mono text-[9px] text-accent">{c.label}</div>
                   <div className="relative z-10 mt-3">
-                    <h4 className="text-2xl sm:text-3xl lg:text-4xl font-display font-black mb-4 sm:mb-7 uppercase tracking-tighter text-accent">{c.title}</h4>
+                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-display font-black mb-4 sm:mb-7 uppercase tracking-tighter text-accent">{c.title}</h3>
                     <p className="text-white/40 text-base sm:text-xl font-serif italic leading-tight mb-7 sm:mb-10">{c.desc}</p>
                     <div className="flex items-center gap-4 opacity-20 group-hover:opacity-100 transition-opacity">
                       <div className="w-2 h-2 rounded-full bg-accent animate-ping" />
@@ -716,7 +716,7 @@ export default function App() {
             <div className="flex items-start gap-4 sm:gap-8">
               <div className="p-3 bg-accent/10 text-accent flex-shrink-0"><Shield size={18} /></div>
               <div>
-                <h4 className="text-lg sm:text-2xl font-display font-black uppercase tracking-tighter mb-2 sm:mb-4">Divine_Judgment</h4>
+                <h3 className="text-lg sm:text-2xl font-display font-black uppercase tracking-tighter mb-2 sm:mb-4">Divine_Judgment</h3>
                 <p className="text-white/30 font-serif italic leading-relaxed text-sm sm:text-base">
                   All signs are generated and verified by the core system. Any attempt to manipulate the congregation or bypass the covenant will result in immediate <RedactedText>damnation</RedactedText>.
                 </p>
