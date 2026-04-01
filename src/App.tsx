@@ -364,7 +364,7 @@ export default function App() {
           <motion.div animate={{ scale:[1,1.5,1], opacity:[0.05,0.15,0.05], x:[-200,200,-200], y:[-100,100,-100] }}
             transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[1200px] h-[400px] sm:h-[1200px] bg-accent/10 rounded-full blur-[100px] sm:blur-[250px]" />
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-[0.07] grayscale scale-110 mix-blend-overlay" />
+          
         </div>
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 flex flex-col items-center">
@@ -442,7 +442,7 @@ export default function App() {
             <div className="lg:col-span-6 grid grid-cols-2 gap-4 sm:gap-6">
               <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.5 }}
                 className="col-span-2 relative aspect-video overflow-hidden border border-white/10 grayscale hover:grayscale-0 transition-all duration-1000 group">
-                <img src="https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&q=80" alt="Dark tunnel"
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYrbl4nNsBeZuRrzb5Bc42Z0wGXLMHUGZWWj4U5giPy83ECyektI1BMh8wEV7KcN92erR_fk0aZN9cmqwtOE203ENJd01WdED8VWpCmo3qW68v_kOX3tnuMLD2-1Vj9JSbGh0xKI3gHu9ep0YCCMMD9LWc47qEut77g28CvhZZmAsCBwtf3bzQQfPrxqk/s1376/imagen2.webp" alt="Dark tunnel"
                   className="w-full h-full object-cover opacity-30 group-hover:opacity-100 transition-all duration-1000 scale-110 group-hover:scale-100" referrerPolicy="no-referrer" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60" />
                 <div className="absolute top-3 sm:top-8 left-3 sm:left-8 flex items-center gap-2 sm:gap-4">
